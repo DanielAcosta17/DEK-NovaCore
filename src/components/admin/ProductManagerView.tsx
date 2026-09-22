@@ -142,6 +142,24 @@ export const ProductManagerView: React.FC<ProductManagerViewProps> = ({
 
   const currency = activeBusiness?.currency || '$';
 
+  if (!activeBusiness) {
+    return (
+      <div className="p-12 text-center bg-white dark:bg-slate-850 rounded-2xl border border-dashed border-slate-300 dark:border-slate-750 space-y-4">
+        <div className="w-12 h-12 mx-auto rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center">
+          <Package className="w-6 h-6" />
+        </div>
+        <div className="space-y-1">
+          <h3 className="text-base font-bold text-slate-800 dark:text-white">
+            Aún no tienes ningún negocio seleccionado
+          </h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+            Para agregar productos y platillos, primero debes registrar o seleccionar un negocio en la sección "Mis Negocios".
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Header and Add button */}

@@ -1,35 +1,51 @@
 export const FIRESTORE_RULES_TEMPLATE = `rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function isSignedIn() { return request.auth != null; }
-    function isOwner(userId) { return isSignedIn() && request.auth.uid == userId; }
 
-    match /{document=**} { allow read, write: if false; }
+    // Función para verificar sesión con Firebase Authentication
+    function isSignedIn() {
+      return request.auth != null;
+    }
 
-    // Catálogos y Negocios
+    // ==================================================
+    // 1. CONTROL TOTAL DE ADMINISTRADOR (AGREGAR, EDITAR, ELIMINAR Y LEER)
+    // ==================================================
+    // Una vez inicias sesión con tu usuario de Firebase Auth, tienes permisos
+    // absolutos para crear, modificar y borrar en CUALQUIER colección o panel.
+    match /{document=**} {
+      allow read, write: if isSignedIn();
+    }
+
+    // ==================================================
+    // 2. ACCESO PÚBLICO PARA CLIENTES (TIENDA WEB Y PEDIDOS)
+    // ==================================================
     match /businesses/{businessId} {
-      allow read: if resource.data.isActive == true || isSignedIn();
-      allow create: if isSignedIn();
-      allow update, delete: if isSignedIn();
+      allow read: if true;
 
       match /categories/{categoryId} {
         allow read: if true;
-        allow write: if isSignedIn();
       }
 
       match /products/{productId} {
         allow read: if true;
-        allow write: if isSignedIn();
       }
 
       match /orders/{orderId} {
-        allow create: if request.resource.data.totalAmount is number;
-        allow read, update, delete: if isSignedIn();
+        allow create: if true;
       }
     }
 
-    match /users/{userId} {
-      allow read, write: if isOwner(userId);
+    // Colecciones raíz para consultas directas del catálogo y carritos
+    match /categories/{categoryId} {
+      allow read: if true;
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+    }
+
+    match /orders/{orderId} {
+      allow create: if true;
     }
   }
 }`;
@@ -37,10 +53,15 @@ service cloud.firestore {
 export const STORAGE_RULES_TEMPLATE = `rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
-    function isSignedIn() { return request.auth != null; }
+    function isSignedIn() {
+      return request.auth != null;
+    }
 
+    // Fotos de negocios, logos y productos
     match /businesses/{businessId}/{allPaths=**} {
+      // Lectura pública para que clientes vean las imágenes en la web y catálogo QR
       allow read: if true;
+      // Solo administradores autenticados pueden subir fotos (máximo 5MB, solo formato imagen)
       allow write: if isSignedIn()
                    && request.resource.size < 5 * 1024 * 1024
                    && request.resource.contentType.matches('image/.*');
@@ -52,3 +73,5 @@ service firebase.storage {
     }
   }
 }`;
+
+

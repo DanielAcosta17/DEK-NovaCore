@@ -38,6 +38,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
     goToPublicStore,
     setSelectedBusinessId,
     selectedBusinessId,
+    purgeAllData,
   } = useBusiness();
 
   const [isModalOpen, setIsModalOpen] = useState(isCreateOpenInitially);
@@ -151,18 +152,55 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
           </p>
         </div>
 
-        <button
-          onClick={openCreateModal}
-          className="py-2.5 px-4 bg-[#253745] hover:bg-[#1a2630] text-white text-xs font-bold rounded-xl flex items-center gap-2 shadow-md transition-all self-start sm:self-auto"
-        >
-          <Plus className="w-4 h-4" />
-          <span>Crear Nuevo Negocio</span>
-        </button>
+        <div className="flex flex-wrap items-center gap-2.5">
+          {businesses.length > 0 && (
+            <button
+              onClick={() => {
+                if (
+                  confirm(
+                    '¿Deseas eliminar TODOS los negocios, productos y pedidos de Firestore y dejar la plataforma en CERO (0)?'
+                  )
+                ) {
+                  purgeAllData();
+                }
+              }}
+              className="py-2.5 px-3 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900 text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all shadow-sm"
+              title="Eliminar todo de Firestore y dejar la web en 0"
+            >
+              <Trash2 className="w-3.5 h-3.5" />
+              <span>Limpiar Todo (0)</span>
+            </button>
+          )}
+
+          <button
+            onClick={openCreateModal}
+            className="py-2.5 px-4 bg-[#253745] hover:bg-[#1a2630] text-white text-xs font-bold rounded-xl flex items-center gap-2 shadow-md transition-all self-start sm:self-auto"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Crear Nuevo Negocio</span>
+          </button>
+        </div>
       </div>
 
       {/* Businesses Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {businesses.map((biz) => {
+        {businesses.length === 0 ? (
+          <div className="col-span-full p-10 text-center bg-white dark:bg-slate-850 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 space-y-3">
+            <Building2 className="w-12 h-12 text-slate-400 mx-auto" />
+            <h4 className="text-base font-bold text-slate-800 dark:text-white">Aún no hay negocios creados</h4>
+            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+              La plataforma está en 0. Haz clic en "Crear Nuevo Negocio" para registrar tu primer catálogo o menú digital con enlace a WhatsApp y código QR.
+            </p>
+            <button
+              onClick={openCreateModal}
+              className="inline-flex items-center gap-2 py-2.5 px-4 bg-[#253745] hover:bg-[#1a2630] text-white text-xs font-bold rounded-xl shadow transition-all"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Crear mi primer negocio</span>
+            </button>
+          </div>
+        ) : (
+          businesses.map((biz) => {
           const isSelected = selectedBusinessId === biz.id;
           return (
             <div
@@ -280,7 +318,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
               </div>
             </div>
           );
-        })}
+        }))}
       </div>
 
       {/* Add / Edit Business Modal */}

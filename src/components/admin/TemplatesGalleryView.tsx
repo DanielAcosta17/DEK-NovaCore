@@ -31,7 +31,7 @@ export const TemplatesGalleryView: React.FC = () => {
       ...activeBusiness,
       template: templateId,
     });
-    setSuccessNotice(`¡Plantilla "${templateName}" aplicada exitosamente a ${activeBusiness.name}!`);
+    setSuccessNotice(`¡Plantilla "${templateName}" aplicada y guardada en Cloud Firestore para ${activeBusiness.name}!`);
     setTimeout(() => setSuccessNotice(null), 3500);
   };
 

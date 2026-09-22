@@ -199,61 +199,73 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
           </button>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 uppercase tracking-wider text-[10px]">
-              <tr>
-                <th className="py-2.5 px-3">Producto</th>
-                <th className="py-2.5 px-3">Precio</th>
-                <th className="py-2.5 px-3">Estado</th>
-                <th className="py-2.5 px-3 text-right">Acción</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
-              {bizProducts.slice(0, 5).map((p) => (
-                <tr key={p.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
-                  <td className="py-3 px-3 flex items-center gap-2.5">
-                    <img
-                      src={p.imageUrl}
-                      alt={p.name}
-                      className="w-9 h-9 rounded-lg object-cover border border-slate-200 dark:border-slate-700"
-                    />
-                    <div>
-                      <div className="font-semibold text-slate-900 dark:text-white truncate max-w-[200px]">
-                        {p.name}
-                      </div>
-                      <div className="text-[10px] text-slate-400 truncate max-w-[200px]">
-                        {p.description || 'Sin descripción'}
-                      </div>
-                    </div>
-                  </td>
-                  <td className="py-3 px-3 font-bold text-slate-900 dark:text-white">
-                    {activeBusiness?.currency || '$'}{p.price.toFixed(2)}
-                  </td>
-                  <td className="py-3 px-3">
-                    <span
-                      className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                        p.isAvailable
-                          ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300'
-                          : 'bg-rose-100 text-rose-700'
-                      }`}
-                    >
-                      {p.isAvailable ? 'Disponible' : 'Agotado'}
-                    </span>
-                  </td>
-                  <td className="py-3 px-3 text-right">
-                    <button
-                      onClick={() => onNavigate('products')}
-                      className="text-xs font-semibold text-[#253745] dark:text-blue-400 hover:underline"
-                    >
-                      Editar
-                    </button>
-                  </td>
+        {bizProducts.length === 0 ? (
+          <div className="py-10 text-center text-xs text-slate-400 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-dashed border-slate-200 dark:border-slate-800 space-y-2">
+            <Package className="w-8 h-8 text-slate-400 mx-auto" />
+            <p className="font-semibold text-slate-700 dark:text-slate-300">
+              No hay productos registrados todavía
+            </p>
+            <p className="text-[11px] text-slate-500">
+              Agrega tu primer artículo para que aparezca aquí y en la tienda pública.
+            </p>
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full text-left text-xs">
+              <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 uppercase tracking-wider text-[10px]">
+                <tr>
+                  <th className="py-2.5 px-3">Producto</th>
+                  <th className="py-2.5 px-3">Precio</th>
+                  <th className="py-2.5 px-3">Estado</th>
+                  <th className="py-2.5 px-3 text-right">Acción</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
+                {bizProducts.slice(0, 5).map((p) => (
+                  <tr key={p.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
+                    <td className="py-3 px-3 flex items-center gap-2.5">
+                      <img
+                        src={p.imageUrl}
+                        alt={p.name}
+                        className="w-9 h-9 rounded-lg object-cover border border-slate-200 dark:border-slate-700"
+                      />
+                      <div>
+                        <div className="font-semibold text-slate-900 dark:text-white truncate max-w-[200px]">
+                          {p.name}
+                        </div>
+                        <div className="text-[10px] text-slate-400 truncate max-w-[200px]">
+                          {p.description || 'Sin descripción'}
+                        </div>
+                      </div>
+                    </td>
+                    <td className="py-3 px-3 font-bold text-slate-900 dark:text-white">
+                      {activeBusiness?.currency || '$'}{p.price.toFixed(2)}
+                    </td>
+                    <td className="py-3 px-3">
+                      <span
+                        className={`inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                          p.isAvailable
+                            ? 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300'
+                            : 'bg-rose-100 text-rose-700'
+                        }`}
+                      >
+                        {p.isAvailable ? 'Disponible' : 'Agotado'}
+                      </span>
+                    </td>
+                    <td className="py-3 px-3 text-right">
+                      <button
+                        onClick={() => onNavigate('products')}
+                        className="text-xs font-semibold text-[#253745] dark:text-blue-400 hover:underline"
+                      >
+                        Editar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );

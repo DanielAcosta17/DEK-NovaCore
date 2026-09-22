@@ -146,32 +146,38 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCreateBusiness, onOpenFire
                 <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400">
                   Sitios Públicos en Vivo
                 </div>
-                {businesses.map((biz) => (
-                  <button
-                    key={biz.id}
-                    onClick={() => {
-                      goToPublicStore(biz.slug);
-                      setExamplesDropdownOpen(false);
-                    }}
-                    className={`w-full text-left px-3 py-2 text-xs flex items-center gap-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${
-                      currentPublicSlug === biz.slug ? 'bg-slate-100 dark:bg-slate-800 font-bold text-[#253745] dark:text-blue-400' : ''
-                    }`}
-                  >
-                    <img
-                      src={biz.logoUrl}
-                      alt={biz.name}
-                      className="w-6 h-6 rounded-md object-cover border border-slate-200 dark:border-slate-700"
-                    />
-                    <div className="truncate">
-                      <div className="font-semibold text-slate-900 dark:text-white truncate">
-                        {biz.name}
+                {businesses.length === 0 ? (
+                  <div className="px-3 py-3 text-center text-xs text-slate-400">
+                    Aún no hay negocios creados. Accede al administrador para agregar tu primer catálogo.
+                  </div>
+                ) : (
+                  businesses.map((biz) => (
+                    <button
+                      key={biz.id}
+                      onClick={() => {
+                        goToPublicStore(biz.slug);
+                        setExamplesDropdownOpen(false);
+                      }}
+                      className={`w-full text-left px-3 py-2 text-xs flex items-center gap-2.5 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors ${
+                        currentPublicSlug === biz.slug ? 'bg-slate-100 dark:bg-slate-800 font-bold text-[#253745] dark:text-blue-400' : ''
+                      }`}
+                    >
+                      <img
+                        src={biz.logoUrl}
+                        alt={biz.name}
+                        className="w-6 h-6 rounded-md object-cover border border-slate-200 dark:border-slate-700"
+                      />
+                      <div className="truncate">
+                        <div className="font-semibold text-slate-900 dark:text-white truncate">
+                          {biz.name}
+                        </div>
+                        <div className="text-[10px] text-slate-500 capitalize">
+                          {biz.template}
+                        </div>
                       </div>
-                      <div className="text-[10px] text-slate-500 capitalize">
-                        {biz.template}
-                      </div>
-                    </div>
-                  </button>
-                ))}
+                    </button>
+                  ))
+                )}
               </div>
             )}
           </div>
@@ -288,21 +294,25 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenCreateBusiness, onOpenFire
             <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">
               Sitios de Ejemplo:
             </div>
-            <div className="grid grid-cols-2 gap-2">
-              {businesses.map((biz) => (
-                <button
-                  key={biz.id}
-                  onClick={() => {
-                    goToPublicStore(biz.slug);
-                    setMobileMenuOpen(false);
-                  }}
-                  className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 text-left flex items-center gap-2 truncate"
-                >
-                  <img src={biz.logoUrl} alt="" className="w-5 h-5 rounded object-cover" />
-                  <span className="truncate">{biz.name}</span>
-                </button>
-              ))}
-            </div>
+            {businesses.length === 0 ? (
+              <p className="text-xs text-slate-400 italic">No hay negocios registrados aún.</p>
+            ) : (
+              <div className="grid grid-cols-2 gap-2">
+                {businesses.map((biz) => (
+                  <button
+                    key={biz.id}
+                    onClick={() => {
+                      goToPublicStore(biz.slug);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 text-left flex items-center gap-2 truncate"
+                  >
+                    <img src={biz.logoUrl} alt="" className="w-5 h-5 rounded object-cover" />
+                    <span className="truncate">{biz.name}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="pt-2 flex flex-col gap-2">

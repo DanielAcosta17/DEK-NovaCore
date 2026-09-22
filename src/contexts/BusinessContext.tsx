@@ -1,7 +1,12 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { Business, Category, Product, Order, TemplateType } from '../types';
 import { DataService } from '../firebase/service';
-import { INITIAL_BUSINESSES, INITIAL_CATEGORIES, INITIAL_PRODUCTS } from '../data/initialData';
+
+// Reset old demo data once so the web starts completely at 0 as requested by the user
+if (typeof window !== 'undefined' && !localStorage.getItem('deknovacore_zero_cleaned_v3')) {
+  DataService.resetDemoData();
+  localStorage.setItem('deknovacore_zero_cleaned_v3', 'true');
+}
 
 interface BusinessContextType {
   businesses: Business[];
@@ -38,54 +43,95 @@ interface BusinessContextType {
   updateCategory: (cat: Category) => Promise<void>;
   deleteCategory: (id: string, businessId: string) => Promise<void>;
   
-  // Order submission
+  // Order submission & status management
   createOrder: (orderData: Omit<Order, 'id' | 'createdAt'>) => Promise<Order>;
+  updateOrderStatus: (orderId: string, businessId: string, status: Order['status']) => Promise<void>;
+  deleteOrder: (orderId: string, businessId: string) => Promise<void>;
   
-  // Reset demo
-  resetData: () => void;
+  // Direct Firestore Sync
+  syncAllToFirestore: () => Promise<{ success: boolean; message: string }>;
+  lastFirestoreSyncTime: string | null;
+  syncNotification: string | null;
+
+  // Purge / Reset to zero
+  purgeAllData: () => Promise<{ success: boolean; deletedCount: number; message: string }>;
+  resetData: () => Promise<void>;
 }
 
 const BusinessContext = createContext<BusinessContextType | undefined>(undefined);
 
 export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [businesses, setBusinesses] = useState<Business[]>(INITIAL_BUSINESSES);
-  const [categories, setCategories] = useState<Category[]>(INITIAL_CATEGORIES);
-  const [products, setProducts] = useState<Product[]>(INITIAL_PRODUCTS);
+  const [businesses, setBusinesses] = useState<Business[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
   const [orders, setOrders] = useState<Order[]>([]);
-  const [selectedBusinessId, setSelectedBusinessId] = useState<string>(INITIAL_BUSINESSES[0].id);
+  const [selectedBusinessId, setSelectedBusinessId] = useState<string>('');
   const [activeView, setActiveView] = useState<'landing' | 'admin' | 'public_store'>('landing');
   const [currentPublicSlug, setCurrentPublicSlug] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [lastFirestoreSyncTime, setLastFirestoreSyncTime] = useState<string | null>(null);
+  const [syncNotification, setSyncNotification] = useState<string | null>(null);
 
-  // Load initial data
-  const loadAll = useCallback(async () => {
-    setIsLoading(true);
-    try {
-      const [bizList, catList, prodList, ordList] = await Promise.all([
-        DataService.getBusinesses(),
-        DataService.getCategories(),
-        DataService.getProducts(),
-        DataService.getOrders(),
-      ]);
-      setBusinesses(bizList);
-      setCategories(catList);
-      setProducts(prodList);
-      setOrders(ordList);
-      if (bizList.length > 0 && !selectedBusinessId) {
-        setSelectedBusinessId(bizList[0].id);
-      }
-    } catch (e) {
-      console.error('Error loading data:', e);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [selectedBusinessId]);
+  const showSyncToast = (msg: string) => {
+    setSyncNotification(msg);
+    setTimeout(() => setSyncNotification(null), 3500);
+  };
 
+  // Purga forzada inicial para garantizar que la plataforma quede 100% en 0
   useEffect(() => {
-    loadAll();
+    if (!localStorage.getItem('deknovacore_zero_purged_final')) {
+      localStorage.setItem('deknovacore_zero_purged_final', 'true');
+      DataService.purgeAllFirestoreData().then((res) => {
+        setBusinesses([]);
+        setCategories([]);
+        setProducts([]);
+        setOrders([]);
+        setSelectedBusinessId('');
+        if (res.deletedCount > 0) {
+          showSyncToast(`Se purgaron ${res.deletedCount} registros antiguos. Plataforma en 0.`);
+        }
+      });
+    }
   }, []);
 
-  const activeBusiness = businesses.find((b) => b.id === selectedBusinessId) || businesses[0] || null;
+  // Real-time Firestore synchronization listeners
+  useEffect(() => {
+    setIsLoading(true);
+
+    const unsubBiz = DataService.subscribeBusinesses((bizList) => {
+      setBusinesses(bizList);
+      setSelectedBusinessId((prev) => {
+        if (prev && bizList.some((b) => b.id === prev)) {
+          return prev;
+        }
+        return bizList.length > 0 ? bizList[0].id : '';
+      });
+      setIsLoading(false);
+    });
+
+    const unsubCat = DataService.subscribeCategories((catList) => {
+      setCategories(catList);
+    });
+
+    const unsubProd = DataService.subscribeProducts((prodList) => {
+      setProducts(prodList);
+    });
+
+    const unsubOrd = DataService.subscribeOrders((ordList) => {
+      setOrders(ordList);
+    });
+
+    return () => {
+      unsubBiz();
+      unsubCat();
+      unsubProd();
+      unsubOrd();
+    };
+  }, []);
+
+  const activeBusiness =
+    businesses.find((b) => b.id === selectedBusinessId) ||
+    (businesses.length > 0 ? businesses[0] : null);
 
   // View navigation helpers
   const goToLanding = () => {
@@ -264,24 +310,89 @@ export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setCategories((prev) => prev.filter((c) => c.id !== id));
   };
 
-  // Order creation
+  // Order creation and status update
   const createOrder = async (orderData: Omit<Order, 'id' | 'createdAt'>): Promise<Order> => {
     const newOrder: Order = {
       ...orderData,
       id: 'ord-' + Date.now(),
       createdAt: new Date().toISOString(),
     };
-    await DataService.saveOrder(newOrder);
+    const res = await DataService.saveOrder(newOrder);
     setOrders((prev) => [newOrder, ...prev]);
+    if (res.firestore) {
+      setLastFirestoreSyncTime(new Date().toLocaleTimeString());
+      showSyncToast(`Pedido #${newOrder.id.slice(-6).toUpperCase()} guardado en Cloud Firestore.`);
+    }
     return newOrder;
   };
 
-  const resetData = () => {
-    DataService.resetDemoData();
-    setBusinesses(INITIAL_BUSINESSES);
-    setCategories(INITIAL_CATEGORIES);
-    setProducts(INITIAL_PRODUCTS);
-    setSelectedBusinessId(INITIAL_BUSINESSES[0].id);
+  const updateOrderStatus = async (
+    orderId: string,
+    businessId: string,
+    status: Order['status']
+  ): Promise<void> => {
+    const res = await DataService.updateOrderStatus(orderId, businessId, status);
+    setOrders((prev) =>
+      prev.map((o) => (o.id === orderId ? { ...o, status } : o))
+    );
+    if (res.firestore) {
+      setLastFirestoreSyncTime(new Date().toLocaleTimeString());
+      showSyncToast(`Estado del pedido actualizado a "${status}" en Firestore.`);
+    }
+  };
+
+  const deleteOrder = async (orderId: string, businessId: string): Promise<void> => {
+    const res = await DataService.deleteOrder(orderId, businessId);
+    setOrders((prev) => prev.filter((o) => o.id !== orderId));
+    if (res.firestore) {
+      setLastFirestoreSyncTime(new Date().toLocaleTimeString());
+      showSyncToast(`Pedido #${orderId.slice(-6).toUpperCase()} eliminado de Firestore.`);
+    }
+  };
+
+  // Mass synchronization to Firestore
+  const syncAllToFirestore = async (): Promise<{ success: boolean; message: string }> => {
+    setIsLoading(true);
+    try {
+      const res = await DataService.syncAllToFirestore(
+        businesses,
+        categories,
+        products,
+        orders
+      );
+      if (res.success) {
+        const time = new Date().toLocaleTimeString();
+        setLastFirestoreSyncTime(time);
+        showSyncToast(res.message);
+        return { success: true, message: res.message };
+      } else {
+        const errMsg = res.message || 'Error desconocido al sincronizar.';
+        showSyncToast(`Error al sincronizar: ${errMsg}`);
+        return { success: false, message: errMsg };
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const purgeAllData = async (): Promise<{ success: boolean; deletedCount: number; message: string }> => {
+    setIsLoading(true);
+    try {
+      const res = await DataService.purgeAllFirestoreData();
+      setBusinesses([]);
+      setCategories([]);
+      setProducts([]);
+      setOrders([]);
+      setSelectedBusinessId('');
+      showSyncToast(res.message);
+      return res;
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const resetData = async () => {
+    await purgeAllData();
   };
 
   return (
@@ -296,6 +407,8 @@ export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         isLoading,
         activeView,
         currentPublicSlug,
+        lastFirestoreSyncTime,
+        syncNotification,
         goToLanding,
         goToAdmin,
         goToPublicStore,
@@ -313,9 +426,19 @@ export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         updateCategory,
         deleteCategory,
         createOrder,
+        updateOrderStatus,
+        deleteOrder,
+        syncAllToFirestore,
+        purgeAllData,
         resetData,
       }}
     >
+      {syncNotification && (
+        <div className="fixed bottom-5 right-5 z-50 bg-[#253745] text-white px-4 py-3 rounded-xl shadow-2xl border border-blue-400/30 flex items-center gap-2.5 text-xs font-semibold animate-fade-in">
+          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+          <span>{syncNotification}</span>
+        </div>
+      )}
       {children}
     </BusinessContext.Provider>
   );

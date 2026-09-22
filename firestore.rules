@@ -2,52 +2,46 @@ rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
 
-    // Helper functions
+    // Función auxiliar para verificar sesión con Firebase Authentication
     function isSignedIn() {
       return request.auth != null;
     }
 
-    function isOwner(userId) {
-      return isSignedIn() && request.auth.uid == userId;
-    }
-
-    // Default deny
+    // 1. CONTROL TOTAL DE ADMINISTRADOR (Crear, Editar, Eliminar y Leer en TODO el panel)
+    // Cuando inicias sesión con tu usuario de Firebase Auth, tienes permisos completos en todas las colecciones.
     match /{document=**} {
-      allow read, write: if false;
+      allow read, write: if isSignedIn();
     }
 
-    // Businesses collection:
-    // Anyone can read active businesses for public storefronts (/negocio/{slug})
-    // Only authenticated owners or admins can write/update/delete
+    // 2. ACCESO PÚBLICO PARA CLIENTES (Para que puedan ver la tienda pública y hacer pedidos)
     match /businesses/{businessId} {
-      allow read: if resource.data.isActive == true || isSignedIn();
-      allow create: if isSignedIn() && request.resource.data.name is string && request.resource.data.slug is string;
-      allow update, delete: if isSignedIn();
+      allow read: if true;
 
-      // Subcollection: Categories
       match /categories/{categoryId} {
         allow read: if true;
-        allow write: if isSignedIn();
       }
 
-      // Subcollection: Products
       match /products/{productId} {
         allow read: if true;
-        allow write: if isSignedIn();
       }
 
-      // Subcollection: Orders
-      // Public visitors can place an order/inquiry document
-      // Only authenticated business managers can read or manage orders
       match /orders/{orderId} {
-        allow create: if request.resource.data.totalAmount is number && request.resource.data.items is list;
-        allow read, update, delete: if isSignedIn();
+        allow create: if true;
       }
     }
 
-    // Users profile collection
-    match /users/{userId} {
-      allow read, write: if isOwner(userId);
+    // Colecciones raíz para sincronización y catálogo
+    match /categories/{categoryId} {
+      allow read: if true;
+    }
+
+    match /products/{productId} {
+      allow read: if true;
+    }
+
+    match /orders/{orderId} {
+      allow create: if true;
     }
   }
 }
+

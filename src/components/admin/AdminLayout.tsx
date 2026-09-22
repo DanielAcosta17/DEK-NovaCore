@@ -31,6 +31,7 @@ import { CategoryManagerView } from './CategoryManagerView';
 import { OrdersManagerView } from './OrdersManagerView';
 import { TemplatesGalleryView } from './TemplatesGalleryView';
 import { SettingsView } from './SettingsView';
+import { AdminLoginView } from './AdminLoginView';
 import { QRCodeModal } from '../common/QRCodeModal';
 import { FirebaseSetupModal } from '../common/FirebaseSetupModal';
 
@@ -43,7 +44,7 @@ export const AdminLayout: React.FC = () => {
     goToLanding,
     goToPublicStore,
   } = useBusiness();
-  const { user, logout } = useAuth();
+  const { user, isAuthenticated, isLoading, logout, isFirebaseConnected } = useAuth();
   const { theme, toggleTheme } = useTheme();
 
   const [activeTab, setActiveTab] = useState<string>('dashboard');
@@ -53,6 +54,26 @@ export const AdminLayout: React.FC = () => {
 
   const [isProductCreateTriggered, setIsProductCreateTriggered] = useState<boolean>(false);
   const [isBusinessCreateTriggered, setIsBusinessCreateTriggered] = useState<boolean>(false);
+
+  // Pantalla de carga mientras se verifica el token con Firebase Auth
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4 text-center text-white">
+        <div className="w-10 h-10 border-3 border-blue-400 border-t-transparent rounded-full animate-spin mb-4" />
+        <h3 className="text-sm font-bold text-white tracking-wide">
+          Verificando sesión con Firebase Authentication...
+        </h3>
+        <p className="text-xs text-slate-400 mt-1">
+          D. E. K NovaCore — Panel de Control
+        </p>
+      </div>
+    );
+  }
+
+  // Si no está autenticado o no hay usuario, solicitar contraseña
+  if (!isAuthenticated || !user) {
+    return <AdminLoginView />;
+  }
 
   const navItems = [
     { id: 'dashboard', label: 'Dashboard / Resumen', icon: LayoutDashboard },
@@ -159,15 +180,33 @@ export const AdminLayout: React.FC = () => {
 
           <div className="h-5 w-px bg-slate-200 dark:bg-slate-700 hidden sm:block" />
 
-          {/* User profile & exit */}
-          <div className="flex items-center gap-2">
+          {/* User badge & Logout */}
+          <div className="flex items-center gap-1.5">
+            <div className="hidden lg:flex flex-col text-right">
+              <span className="text-[11px] font-bold text-slate-900 dark:text-white truncate max-w-[130px]">
+                {user.displayName || user.email}
+              </span>
+              <span className="text-[9px] text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider">
+                {isFirebaseConnected ? 'Firebase Auth' : 'Admin'}
+              </span>
+            </div>
+
+            <button
+              onClick={() => logout()}
+              className="p-2 rounded-xl text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 border border-rose-200/50 dark:border-rose-900/50 text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+              title="Cerrar sesión de administrador"
+            >
+              <LogOut className="w-4 h-4" />
+              <span className="hidden sm:inline">Salir</span>
+            </button>
+
             <button
               onClick={goToLanding}
               className="p-2 rounded-xl text-slate-500 hover:text-slate-800 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-colors"
-              title="Ir a página de inicio"
+              title="Ir a página de inicio pública"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span className="hidden sm:inline">Landing</span>
+              <span className="hidden sm:inline">Web</span>
             </button>
           </div>
         </div>
@@ -210,9 +249,9 @@ export const AdminLayout: React.FC = () => {
             })}
           </div>
 
-          {/* Sidebar Footer: Active Business Card */}
-          {activeBusiness && (
-            <div className="p-4 border-t border-slate-100 dark:border-slate-800">
+          {/* Sidebar Footer: Active Business Card & Admin Profile */}
+          <div className="p-4 space-y-2.5 border-t border-slate-100 dark:border-slate-800">
+            {activeBusiness && (
               <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 flex items-center gap-2.5">
                 <img
                   src={activeBusiness.logoUrl}
@@ -228,9 +267,34 @@ export const AdminLayout: React.FC = () => {
                   </div>
                 </div>
               </div>
+            )}
+
+            {/* Current user card with logout */}
+            <div className="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-800/40 border border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between gap-2">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-7 h-7 rounded-lg bg-[#253745] text-white font-bold text-xs flex items-center justify-center shrink-0">
+                  {user.email ? user.email.charAt(0).toUpperCase() : 'A'}
+                </div>
+                <div className="min-w-0">
+                  <div className="text-[11px] font-bold text-slate-800 dark:text-slate-200 truncate">
+                    {user.email}
+                  </div>
+                  <div className="text-[9px] text-slate-400">
+                    Administrador
+                  </div>
+                </div>
+              </div>
+              <button
+                onClick={() => logout()}
+                className="p-1.5 rounded-lg text-slate-400 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                title="Cerrar sesión"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
             </div>
-          )}
+          </div>
         </aside>
+
 
         {/* Overlay backdrop for mobile sidebar */}
         {mobileSidebarOpen && (
