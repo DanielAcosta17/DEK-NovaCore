@@ -69,28 +69,28 @@ export const OrdersManagerView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+          <h2 className="text-xl font-bold text-white">
             Historial de Pedidos de {activeBusiness?.name}
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-sky-200">
             Registro y gestión de pedidos recibidos por WhatsApp y web (sincronizados directamente en Firestore).
           </p>
         </div>
-        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-xs font-semibold">
-          <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+        <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-950/70 border border-emerald-800 text-emerald-300 text-xs font-semibold">
+          <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
           <span>Sincronización Firestore Activa</span>
         </div>
       </div>
 
       {bizOrders.length === 0 ? (
-        <div className="p-12 bg-white dark:bg-slate-850 rounded-2xl border border-slate-200 dark:border-slate-800 text-center space-y-3">
-          <div className="w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-400 mx-auto">
+        <div className="p-12 bg-[#16222f] dark:bg-[#111a24] rounded-2xl border border-slate-700/80 text-center space-y-3 shadow-md">
+          <div className="w-14 h-14 rounded-full bg-slate-800 flex items-center justify-center text-sky-400 mx-auto">
             <ShoppingBag className="w-6 h-6" />
           </div>
-          <h3 className="font-bold text-slate-900 dark:text-white text-base">
+          <h3 className="font-bold text-white text-base">
             No hay pedidos registrados aún
           </h3>
-          <p className="text-xs text-slate-500 max-w-sm mx-auto">
+          <p className="text-xs text-sky-200 max-w-sm mx-auto">
             Cuando los clientes hagan clic en &quot;Realizar pedido por WhatsApp&quot; desde la página pública, se registrarán automáticamente aquí y en Firestore.
           </p>
         </div>
@@ -107,17 +107,17 @@ export const OrdersManagerView: React.FC = () => {
             return (
               <div
                 key={order.id}
-                className="bg-white dark:bg-slate-850 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-4 text-xs"
+                className="bg-[#16222f] dark:bg-[#111a24] rounded-2xl border border-slate-700/80 p-5 shadow-md space-y-4 text-xs"
               >
-                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 dark:border-slate-800 pb-3">
+                <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700/80 pb-3">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-slate-900 dark:text-white">
+                    <span className="font-mono font-bold text-white">
                       #{order.id.slice(-6).toUpperCase()}
                     </span>
                     {getStatusBadge(order.status)}
                   </div>
 
-                  <div className="flex items-center gap-3 text-slate-400 text-[11px]">
+                  <div className="flex items-center gap-3 text-sky-300 text-[11px]">
                     <div className="flex items-center gap-1.5">
                       <Clock className="w-3.5 h-3.5" />
                       <span>{new Date(order.createdAt).toLocaleString()}</span>
@@ -125,7 +125,7 @@ export const OrdersManagerView: React.FC = () => {
                     <button
                       onClick={() => handleDeleteOrder(order.id)}
                       title="Eliminar pedido de Firestore"
-                      className="p-1 rounded-lg text-slate-400 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                      className="p-1 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-rose-950/40 transition-colors cursor-pointer"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>
@@ -134,23 +134,23 @@ export const OrdersManagerView: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Customer Info */}
-                  <div className="space-y-1.5 bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
-                    <div className="font-bold text-slate-950 dark:text-white flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
+                  <div className="space-y-1.5 bg-[#0f1722] p-3.5 rounded-xl border border-slate-700/80">
+                    <div className="font-bold text-white flex items-center gap-1.5">
+                      <User className="w-3.5 h-3.5 text-sky-400" />
                       <span>{order.customerName}</span>
                     </div>
-                    <div className="text-slate-800 dark:text-slate-200 font-medium flex items-center gap-1.5">
-                      <Phone className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
+                    <div className="text-sky-200 font-medium flex items-center gap-1.5">
+                      <Phone className="w-3.5 h-3.5 text-sky-400" />
                       <span>{order.customerPhone}</span>
                     </div>
                     {order.deliveryAddress && (
-                      <div className="text-slate-800 dark:text-slate-200 font-medium flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300 shrink-0" />
+                      <div className="text-sky-200 font-medium flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-sky-400 shrink-0" />
                         <span>{order.deliveryAddress}</span>
                       </div>
                     )}
                     {order.notes && (
-                      <div className="text-amber-700 dark:text-amber-300 font-medium italic pt-1">
+                      <div className="text-amber-300 font-medium italic pt-1">
                         &quot;{order.notes}&quot;
                       </div>
                     )}
@@ -158,25 +158,25 @@ export const OrdersManagerView: React.FC = () => {
 
                   {/* Items List */}
                   <div className="space-y-1.5">
-                    <div className="font-bold text-slate-900 dark:text-slate-100 mb-1">
+                    <div className="font-bold text-white mb-1">
                       Artículos Ordenados:
                     </div>
                     {order.items.map((it, idx) => (
                       <div
                         key={idx}
-                        className="flex justify-between text-slate-800 dark:text-slate-200 font-medium py-0.5 border-b border-dashed border-slate-200 dark:border-slate-800"
+                        className="flex justify-between text-sky-200 font-medium py-0.5 border-b border-dashed border-slate-700"
                       >
                         <span>
                           {it.quantity}x {it.productName}
                         </span>
-                        <span className="font-bold text-slate-950 dark:text-white">
+                        <span className="font-bold text-white">
                           {currency}{it.subtotal.toFixed(2)}
                         </span>
                       </div>
                     ))}
-                    <div className="pt-2 flex justify-between font-extrabold text-sm text-slate-900 dark:text-white">
+                    <div className="pt-2 flex justify-between font-extrabold text-sm text-white">
                       <span>Total:</span>
-                      <span className="text-emerald-600 dark:text-emerald-400">
+                      <span className="text-emerald-400">
                         {currency}{order.totalAmount.toFixed(2)}
                       </span>
                     </div>
@@ -184,45 +184,45 @@ export const OrdersManagerView: React.FC = () => {
                 </div>
 
                 {/* Status action buttons & WhatsApp */}
-                <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-100 dark:border-slate-800">
+                <div className="pt-2 flex flex-wrap items-center justify-between gap-2 border-t border-slate-700/80">
                   <div className="flex flex-wrap items-center gap-1.5">
-                    <span className="text-[11px] text-slate-500 font-bold mr-1">Cambiar Estado:</span>
+                    <span className="text-[11px] text-sky-300 font-bold mr-1">Cambiar Estado:</span>
                     <button
                       onClick={() => handleStatusChange(order.id, 'pending')}
-                      className={`px-2.5 py-1 rounded-lg font-bold text-[10px] transition-all ${
+                      className={`px-2.5 py-1 rounded-lg font-bold text-[10px] transition-all cursor-pointer ${
                         order.status === 'pending'
                           ? 'bg-amber-600 text-white'
-                          : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
+                          : 'bg-slate-800 hover:bg-slate-700 text-sky-200'
                       }`}
                     >
                       Pendiente
                     </button>
                     <button
                       onClick={() => handleStatusChange(order.id, 'contacted')}
-                      className={`px-2.5 py-1 rounded-lg font-bold text-[10px] transition-all ${
+                      className={`px-2.5 py-1 rounded-lg font-bold text-[10px] transition-all cursor-pointer ${
                         order.status === 'contacted'
-                          ? 'bg-blue-600 text-white'
-                          : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
+                          ? 'bg-sky-600 text-white'
+                          : 'bg-slate-800 hover:bg-slate-700 text-sky-200'
                       }`}
                     >
                       Contactado
                     </button>
                     <button
                       onClick={() => handleStatusChange(order.id, 'completed')}
-                      className={`px-2.5 py-1 rounded-lg font-bold text-[10px] transition-all ${
+                      className={`px-2.5 py-1 rounded-lg font-bold text-[10px] transition-all cursor-pointer ${
                         order.status === 'completed'
                           ? 'bg-emerald-600 text-white'
-                          : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
+                          : 'bg-slate-800 hover:bg-slate-700 text-sky-200'
                       }`}
                     >
                       Completado
                     </button>
                     <button
                       onClick={() => handleStatusChange(order.id, 'cancelled')}
-                      className={`px-2.5 py-1 rounded-lg font-bold text-[10px] transition-all ${
+                      className={`px-2.5 py-1 rounded-lg font-bold text-[10px] transition-all cursor-pointer ${
                         order.status === 'cancelled'
                           ? 'bg-rose-600 text-white'
-                          : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300'
+                          : 'bg-slate-800 hover:bg-slate-700 text-sky-200'
                       }`}
                     >
                       Cancelado
@@ -233,7 +233,7 @@ export const OrdersManagerView: React.FC = () => {
                     href={customerChatUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="py-1.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-bold flex items-center gap-1.5 transition-all shadow-sm text-xs"
+                    className="py-1.5 px-3 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold flex items-center gap-1.5 transition-all shadow-sm text-xs cursor-pointer"
                   >
                     <MessageCircle className="w-3.5 h-3.5 fill-current" />
                     <span>WhatsApp</span>

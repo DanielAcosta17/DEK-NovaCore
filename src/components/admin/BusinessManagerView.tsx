@@ -144,10 +144,10 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
       {/* Header and Add button */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+          <h2 className="text-xl font-bold text-white">
             Gestor de Negocios y Clientes
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-sky-200">
             Crea y administra sitios web independientes para cada uno de tus clientes.
           </p>
         </div>
@@ -164,7 +164,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                   purgeAllData();
                 }
               }}
-              className="py-2.5 px-3 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/40 text-rose-600 dark:text-rose-400 border border-rose-200 dark:border-rose-900 text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all shadow-sm"
+              className="py-2.5 px-3 bg-rose-950/60 hover:bg-rose-900/60 text-rose-300 border border-rose-800 text-xs font-bold rounded-xl flex items-center gap-1.5 transition-all shadow-sm cursor-pointer"
               title="Eliminar todo de Firestore y dejar la web en 0"
             >
               <Trash2 className="w-3.5 h-3.5" />
@@ -174,7 +174,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
 
           <button
             onClick={openCreateModal}
-            className="py-2.5 px-4 bg-[#253745] hover:bg-[#1a2630] text-white text-xs font-bold rounded-xl flex items-center gap-2 shadow-md transition-all self-start sm:self-auto"
+            className="py-2.5 px-4 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl flex items-center gap-2 shadow-md transition-all self-start sm:self-auto cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Crear Nuevo Negocio</span>
@@ -185,15 +185,15 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
       {/* Businesses Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {businesses.length === 0 ? (
-          <div className="col-span-full p-10 text-center bg-white dark:bg-slate-850 rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 space-y-3">
-            <Building2 className="w-12 h-12 text-slate-400 mx-auto" />
-            <h4 className="text-base font-bold text-slate-800 dark:text-white">Aún no hay negocios creados</h4>
-            <p className="text-xs text-slate-500 max-w-sm mx-auto">
+          <div className="col-span-full p-10 text-center bg-[#16222f] dark:bg-[#111a24] rounded-2xl border border-dashed border-slate-700 shadow-md space-y-3">
+            <Building2 className="w-12 h-12 text-sky-400 mx-auto" />
+            <h4 className="text-base font-bold text-white">Aún no hay negocios creados</h4>
+            <p className="text-xs text-sky-200 max-w-sm mx-auto">
               La plataforma está en 0. Haz clic en "Crear Nuevo Negocio" para registrar tu primer catálogo o menú digital con enlace a WhatsApp y código QR.
             </p>
             <button
               onClick={openCreateModal}
-              className="inline-flex items-center gap-2 py-2.5 px-4 bg-[#253745] hover:bg-[#1a2630] text-white text-xs font-bold rounded-xl shadow transition-all"
+              className="inline-flex items-center gap-2 py-2.5 px-4 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl shadow-md transition-all cursor-pointer"
             >
               <Plus className="w-4 h-4" />
               <span>Crear mi primer negocio</span>
@@ -205,10 +205,10 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
           return (
             <div
               key={biz.id}
-              className={`bg-white dark:bg-slate-850 rounded-2xl border transition-all overflow-hidden flex flex-col justify-between shadow-sm ${
+              className={`bg-[#16222f] dark:bg-[#111a24] rounded-2xl border transition-all overflow-hidden flex flex-col justify-between shadow-md ${
                 isSelected
-                  ? 'border-[#253745] dark:border-blue-500 ring-2 ring-[#253745]/20'
-                  : 'border-slate-200 dark:border-slate-800 hover:border-slate-300'
+                  ? 'border-sky-400 ring-2 ring-sky-400/30'
+                  : 'border-slate-700/80 hover:border-sky-500/50'
               }`}
             >
               <div>
@@ -243,7 +243,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                       <h3 className="text-xs font-bold leading-tight drop-shadow truncate max-w-[180px]">
                         {biz.name}
                       </h3>
-                      <span className="text-[10px] opacity-80 capitalize">
+                      <span className="text-[10px] text-sky-200 capitalize">
                         Plantilla: {biz.template}
                       </span>
                     </div>
@@ -252,18 +252,18 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
 
                 {/* Details */}
                 <div className="p-4 space-y-2 text-xs">
-                  <div className="text-[11px] font-mono font-bold text-slate-800 dark:text-slate-200 truncate">
+                  <div className="text-[11px] font-mono font-bold text-sky-300 truncate">
                     /negocio/{biz.slug}
                   </div>
-                  <p className="text-slate-800 dark:text-slate-200 text-xs line-clamp-2 leading-relaxed">
+                  <p className="text-sky-100 text-xs line-clamp-2 leading-relaxed">
                     {biz.description}
                   </p>
 
-                  <div className="pt-2 flex flex-wrap gap-2 text-[10px] text-slate-700 dark:text-slate-300 font-semibold">
-                    <span className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
-                      <MessageCircle className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> WhatsApp
+                  <div className="pt-2 flex flex-wrap gap-2 text-[10px] text-sky-200 font-semibold">
+                    <span className="flex items-center gap-1 bg-[#0f1722] px-2 py-0.5 rounded border border-slate-700">
+                      <MessageCircle className="w-3 h-3 text-emerald-400" /> WhatsApp
                     </span>
-                    <span className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
+                    <span className="flex items-center gap-1 bg-[#0f1722] px-2 py-0.5 rounded border border-slate-700">
                       <Palette className="w-3 h-3" style={{ color: biz.primaryColor }} /> {biz.primaryColor}
                     </span>
                   </div>
@@ -271,28 +271,28 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
               </div>
 
               {/* Actions Footer */}
-              <div className="p-3 bg-slate-50 dark:bg-slate-800/60 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs">
+              <div className="p-3 bg-[#0f1722] border-t border-slate-700/80 flex items-center justify-between text-xs">
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => setSelectedBusinessId(biz.id)}
-                    className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-colors ${
+                    className={`px-2.5 py-1 rounded-lg text-[11px] font-bold transition-colors cursor-pointer ${
                       isSelected
-                        ? 'bg-[#253745] text-white'
-                        : 'text-slate-600 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-700'
+                        ? 'bg-sky-500 text-slate-950 font-bold'
+                        : 'text-sky-200 hover:bg-slate-800 hover:text-white'
                     }`}
                   >
                     {isSelected ? 'Seleccionado' : 'Seleccionar'}
                   </button>
                   <button
                     onClick={() => setQrBiz(biz)}
-                    className="p-1.5 text-slate-500 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                    className="p-1.5 text-sky-300 hover:text-white rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
                     title="Ver Código QR"
                   >
                     <QrCode className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => goToPublicStore(biz.slug)}
-                    className="p-1.5 text-slate-500 hover:text-blue-600 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                    className="p-1.5 text-sky-300 hover:text-sky-400 rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
                     title="Abrir Sitio Público"
                   >
                     <ExternalLink className="w-4 h-4" />
@@ -302,14 +302,14 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => openEditModal(biz)}
-                    className="p-1.5 text-slate-500 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                    className="p-1.5 text-sky-300 hover:text-white rounded-lg hover:bg-slate-800 transition-colors cursor-pointer"
                     title="Editar Negocio"
                   >
                     <Edit2 className="w-4 h-4" />
                   </button>
                   <button
                     onClick={() => handleDelete(biz)}
-                    className="p-1.5 text-rose-500 hover:text-rose-700 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors"
+                    className="p-1.5 text-rose-400 hover:text-rose-300 rounded-lg hover:bg-rose-950/40 transition-colors cursor-pointer"
                     title="Eliminar Negocio"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -323,19 +323,19 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
 
       {/* Add / Edit Business Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="relative w-full max-w-2xl bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 my-8 overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 overflow-y-auto">
+          <div className="relative w-full max-w-2xl bg-[#16222f] dark:bg-[#111a24] rounded-2xl shadow-2xl border border-slate-700/80 my-8 overflow-hidden">
             {/* Header */}
-            <div className="p-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/70 dark:bg-slate-850">
+            <div className="p-5 border-b border-slate-700/80 flex items-center justify-between bg-[#0f1722]">
               <div className="flex items-center gap-2.5">
-                <div className="w-9 h-9 rounded-xl bg-[#253745] text-white flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-sky-500 text-slate-950 flex items-center justify-center font-bold">
                   <Building2 className="w-5 h-5" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+                  <h3 className="font-bold text-white text-sm">
                     {editingBiz ? `Editar Negocio: ${editingBiz.name}` : 'Crear Nuevo Negocio / Cliente'}
                   </h3>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  <p className="text-[11px] text-sky-300">
                     Configura la identidad, plantilla y datos de contacto para la página web
                   </p>
                 </div>
@@ -343,7 +343,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
 
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-2 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                className="p-2 text-sky-400 hover:text-white rounded-lg hover:bg-slate-800 cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -354,7 +354,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
               {/* Row 1: Name and Slug */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     Nombre del Negocio *
                   </label>
                   <input
@@ -363,23 +363,23 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                     placeholder="Ej: Dulce Encanto Pastelería"
                     value={formData.name || ''}
                     onChange={(e) => handleNameChange(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     Enlace / Slug Público (URL) *
                   </label>
-                  <div className="flex items-center bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-2.5">
-                    <span className="text-slate-400 text-[11px] font-mono">/negocio/</span>
+                  <div className="flex items-center bg-[#0f1722] border border-slate-700 rounded-xl px-2.5">
+                    <span className="text-sky-400 text-[11px] font-mono">/negocio/</span>
                     <input
                       type="text"
                       required
                       placeholder="dulce-encanto"
                       value={formData.slug || ''}
                       onChange={(e) => setFormData({ ...formData, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '') })}
-                      className="w-full px-1 py-2 bg-transparent text-slate-900 dark:text-white font-mono focus:outline-none"
+                      className="w-full px-1 py-2 bg-transparent text-white font-mono focus:outline-none"
                     />
                   </div>
                 </div>
@@ -388,7 +388,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
               {/* Row 2: Business Type & Template */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     Rubro / Tipo de Negocio *
                   </label>
                   <input
@@ -396,21 +396,21 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                     placeholder="Ej: Pastelería Artesanal, Restaurante, Boutique"
                     value={formData.businessType || ''}
                     onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     Plantilla Visual de Diseño *
                   </label>
                   <select
                     value={formData.template || 'general'}
                     onChange={(e) => setFormData({ ...formData, template: e.target.value as TemplateType })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                   >
                     {AVAILABLE_TEMPLATES.map((tmpl) => (
-                      <option key={tmpl.id} value={tmpl.id}>
+                      <option key={tmpl.id} value={tmpl.id} className="bg-[#16222f] text-white">
                         {tmpl.name} ({tmpl.category})
                       </option>
                     ))}
@@ -420,7 +420,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
 
               {/* Tagline and Description */}
               <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block font-semibold text-sky-200 mb-1">
                   Eslogan / Frase Destacada
                 </label>
                 <input
@@ -428,12 +428,12 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                   placeholder="Ej: Postres hechos a mano con amor"
                   value={formData.tagline || ''}
                   onChange={(e) => setFormData({ ...formData, tagline: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block font-semibold text-sky-200 mb-1">
                   Descripción General del Negocio
                 </label>
                 <textarea
@@ -441,40 +441,40 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                   placeholder="Explica qué ofreces, especialidades, historia breve..."
                   value={formData.description || ''}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                 />
               </div>
 
               {/* Logo URL and Cover URL */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     URL del Logotipo
                   </label>
                   <input
                     type="url"
                     value={formData.logoUrl || ''}
                     onChange={(e) => setFormData({ ...formData, logoUrl: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                   />
                   {formData.logoUrl && (
                     <img
                       src={formData.logoUrl}
                       alt="Logo preview"
-                      className="w-10 h-10 rounded-lg object-cover mt-2 border border-slate-200"
+                      className="w-10 h-10 rounded-lg object-cover mt-2 border border-slate-700"
                     />
                   )}
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     URL Imagen de Portada (Banner)
                   </label>
                   <input
                     type="url"
                     value={formData.coverUrl || ''}
                     onChange={(e) => setFormData({ ...formData, coverUrl: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                   />
                 </div>
               </div>
@@ -482,7 +482,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
               {/* Contact Information: WhatsApp & Phone */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     WhatsApp para Pedidos (Sin signos +, ej: 50760000000) *
                   </label>
                   <input
@@ -491,12 +491,12 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                     placeholder="50760000000"
                     value={formData.whatsapp || ''}
                     onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     Teléfono Fijo / Móvil de Llamadas
                   </label>
                   <input
@@ -504,7 +504,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                     placeholder="+507 6000-0000"
                     value={formData.phone || ''}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                   />
                 </div>
               </div>
@@ -512,7 +512,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
               {/* Address and Schedule */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     Dirección Física
                   </label>
                   <input
@@ -520,12 +520,12 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                     placeholder="Ej: Calle 50, San Francisco, Panamá"
                     value={formData.address || ''}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     Horario de Atención
                   </label>
                   <input
@@ -533,7 +533,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                     placeholder="Lunes a Domingo: 8:00 AM - 8:00 PM"
                     value={formData.schedule || ''}
                     onChange={(e) => setFormData({ ...formData, schedule: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                   />
                 </div>
               </div>
@@ -541,7 +541,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
               {/* Color picker & Currency */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     Color Primario de Marca
                   </label>
                   <div className="flex items-center gap-2">
@@ -555,30 +555,30 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                       type="text"
                       value={formData.primaryColor || '#253745'}
                       onChange={(e) => setFormData({ ...formData, primaryColor: e.target.value })}
-                      className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white font-mono"
+                      className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white font-mono"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     Símbolo de Moneda
                   </label>
                   <select
                     value={formData.currency || '$'}
                     onChange={(e) => setFormData({ ...formData, currency: e.target.value })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white"
                   >
-                    <option value="$">Dólares ($ USD / B/.)</option>
-                    <option value="€">Euros (€ EUR)</option>
-                    <option value="MXN $">Pesos Mexicanos (MXN $)</option>
-                    <option value="COL $">Pesos Colombianos (COL $)</option>
-                    <option value="S/">Soles Peruanos (S/)</option>
+                    <option value="$" className="bg-[#16222f] text-white">Dólares ($ USD / B/.)</option>
+                    <option value="€" className="bg-[#16222f] text-white">Euros (€ EUR)</option>
+                    <option value="MXN $" className="bg-[#16222f] text-white">Pesos Mexicanos (MXN $)</option>
+                    <option value="COL $" className="bg-[#16222f] text-white">Pesos Colombianos (COL $)</option>
+                    <option value="S/" className="bg-[#16222f] text-white">Soles Peruanos (S/)</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block font-semibold text-sky-200 mb-1">
                     Costo de Entrega / Delivery
                   </label>
                   <input
@@ -586,14 +586,14 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                     step="0.5"
                     value={formData.deliveryCost ?? 3}
                     onChange={(e) => setFormData({ ...formData, deliveryCost: parseFloat(e.target.value) || 0 })}
-                    className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white"
+                    className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white"
                   />
                 </div>
               </div>
 
               {/* Announcement Bar */}
               <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block font-semibold text-sky-200 mb-1">
                   Anuncio Destacado (Opcional en la parte superior)
                 </label>
                 <input
@@ -601,22 +601,22 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                   placeholder="Ej: ¡2x1 en cafés todos los jueves! o Envío gratis este fin de semana"
                   value={formData.featuredNotice || ''}
                   onChange={(e) => setFormData({ ...formData, featuredNotice: e.target.value })}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                 />
               </div>
 
               {/* Footer Modal Actions */}
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-end gap-3">
+              <div className="pt-4 border-t border-slate-700/80 flex items-center justify-end gap-3">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 font-semibold"
+                  className="px-4 py-2 rounded-xl text-sky-300 hover:text-white hover:bg-slate-800 font-semibold cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 bg-[#253745] hover:bg-[#1a2630] text-white font-bold rounded-xl shadow-md transition-all"
+                  className="px-5 py-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold rounded-xl shadow-md transition-all cursor-pointer"
                 >
                   {editingBiz ? 'Guardar Cambios' : 'Crear Negocio Ahora'}
                 </button>

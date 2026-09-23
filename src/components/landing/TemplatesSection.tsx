@@ -24,16 +24,16 @@ export const TemplatesSection: React.FC = () => {
   };
 
   return (
-    <section id="plantillas" className="py-16 lg:py-24 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800">
+    <section id="plantillas" className="py-16 lg:py-24 bg-[#111a24] border-t border-slate-700/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#253745] dark:text-blue-400">
+          <span className="text-xs font-bold uppercase tracking-widest text-sky-400">
             Arquitectura Modular Adaptable
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
             5 Plantillas Visuales Especializadas
           </h2>
-          <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300">
+          <p className="text-sm sm:text-base text-sky-200">
             Un único motor reactivo ultrarrápido que adapta automáticamente su disposición, tipografías, botones y flujo de pedido según el rubro de tu negocio.
           </p>
         </div>

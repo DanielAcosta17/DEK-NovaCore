@@ -41,14 +41,14 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCreateBusiness }) => {
 
         {/* Main Headline and Subtitle */}
         <div className="text-center mt-6 max-w-4xl mx-auto space-y-5">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15]">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.15]">
             Tu negocio merece{' '}
-            <span className="text-[#253745] dark:text-blue-400 underline decoration-slate-300 dark:decoration-slate-700 decoration-wavy decoration-2">
+            <span className="text-sky-400 underline decoration-sky-600 decoration-wavy decoration-2">
               estar en Internet
             </span>
           </h1>
 
-          <p className="text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
+          <p className="text-base sm:text-lg lg:text-xl text-sky-200 max-w-2xl mx-auto font-normal leading-relaxed">
             Creamos catálogos, menús y sitios web profesionales para llevar tu negocio al mundo digital. Vende más rápido con pedidos automáticos directos a tu WhatsApp.
           </p>
 
@@ -56,9 +56,9 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCreateBusiness }) => {
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3.5">
             <button
               onClick={onOpenCreateBusiness}
-              className="w-full sm:w-auto px-7 py-3.5 bg-[#253745] hover:bg-[#1a2630] text-white text-sm font-bold rounded-xl shadow-lg shadow-[#253745]/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2.5 shine-effect cursor-pointer"
+              className="w-full sm:w-auto px-7 py-3.5 bg-sky-500 hover:bg-sky-400 text-slate-950 text-sm font-bold rounded-xl shadow-lg shadow-sky-500/20 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 flex items-center justify-center gap-2.5 shine-effect cursor-pointer"
             >
-              <Sparkles className="w-4 h-4 text-amber-400" />
+              <Sparkles className="w-4 h-4 text-slate-950" />
               <span>Crear mi sitio</span>
               <ArrowRight className="w-4 h-4" />
             </button>
@@ -73,15 +73,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCreateBusiness }) => {
           </div>
 
           {/* Quick trust metrics */}
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 dark:text-slate-400">
+          <div className="pt-4 flex flex-wrap items-center justify-center gap-6 text-xs text-sky-300">
             <span className="flex items-center gap-1.5 font-medium">
-              <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Sin comisiones por ventas
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Sin comisiones por ventas
             </span>
             <span className="flex items-center gap-1.5 font-medium">
-              <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Pedidos directos a WhatsApp
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Pedidos directos a WhatsApp
             </span>
             <span className="flex items-center gap-1.5 font-medium">
-              <CheckCircle2 className="w-4 h-4 text-emerald-500" /> Código QR incluido
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Código QR incluido
             </span>
           </div>
         </div>
@@ -93,7 +93,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenCreateBusiness }) => {
             <h3 className="text-xs font-bold uppercase tracking-widest text-sky-400">
               Casos Reales y Plantillas Pre-configuradas
             </h3>
-            <p className="text-lg font-bold text-slate-900 dark:text-white mt-1">
+            <p className="text-lg font-bold text-white mt-1">
               Explora cómo luce cada tipo de negocio con nuestra plataforma
             </p>
           </div>

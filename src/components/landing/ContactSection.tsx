@@ -36,21 +36,21 @@ export const ContactSection: React.FC = () => {
   };
 
   return (
-    <section id="contacto" className="py-16 lg:py-24 bg-slate-50/50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800">
+    <section id="contacto" className="py-16 lg:py-24 bg-[#111a24] border-t border-slate-700/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left information */}
           <div className="lg:col-span-5 space-y-6">
             <div>
-              <span className="text-xs font-bold uppercase tracking-widest text-[#253745] dark:text-blue-400">
+              <span className="text-xs font-bold uppercase tracking-widest text-sky-400">
                 Hablemos de tu Proyecto
               </span>
-              <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mt-1">
+              <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight mt-1">
                 ¿Listo para lanzar el catálogo o menú de tu negocio?
               </h2>
             </div>
 
-            <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            <p className="text-sm text-sky-200 leading-relaxed">
               Escríbenos directamente o completa el formulario. Te responderemos en minutos para asesorarte en la mejor plantilla y configuración para tu marca.
             </p>
 
@@ -59,14 +59,14 @@ export const ContactSection: React.FC = () => {
                 href="https://wa.me/50760244779?text=Hola%20D.%20E.%20K%20NovaCore,%20quiero%20m%C3%A1s%20informaci%C3%B3n"
                 target="_blank"
                 rel="noreferrer"
-                className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 flex items-center gap-3.5 text-emerald-900 dark:text-emerald-200 hover:scale-[1.01] transition-transform"
+                className="p-3.5 rounded-2xl bg-emerald-950/50 border border-emerald-800/80 flex items-center gap-3.5 text-emerald-200 hover:scale-[1.01] transition-transform shadow-md"
               >
                 <div className="w-10 h-10 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0">
                   <MessageCircle className="w-5 h-5 fill-current" />
                 </div>
                 <div>
-                  <div className="font-bold text-sm">WhatsApp Directo</div>
-                  <div className="text-[11px] opacity-80">+507 6024-4779 (Atención Rápida)</div>
+                  <div className="font-bold text-white text-sm">WhatsApp Directo</div>
+                  <div className="text-[11px] text-emerald-300">+507 6024-4779 (Atención Rápida)</div>
                 </div>
               </a>
 

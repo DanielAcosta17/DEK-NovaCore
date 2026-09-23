@@ -101,12 +101,12 @@ export const PublicBusinessView: React.FC<PublicBusinessViewProps> = ({ business
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 flex flex-col transition-colors">
+    <div className="min-h-screen bg-[#0d1520] text-slate-100 flex flex-col transition-colors">
       {/* Top utility bar */}
-      <div className="bg-[#253745] text-white text-xs py-2 px-4 flex items-center justify-between border-b border-slate-700/50">
+      <div className="bg-[#111a24] text-sky-200 text-xs py-2 px-4 flex items-center justify-between border-b border-slate-700/80">
         <button
           onClick={goToLanding}
-          className="flex items-center gap-1.5 text-slate-300 hover:text-white transition-colors text-xs font-semibold"
+          className="flex items-center gap-1.5 text-sky-300 hover:text-white transition-colors text-xs font-semibold cursor-pointer"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Volver a D. E. K NovaCore</span>
@@ -115,14 +115,14 @@ export const PublicBusinessView: React.FC<PublicBusinessViewProps> = ({ business
         <div className="flex items-center gap-3">
           <button
             onClick={() => setIsQRModalOpen(true)}
-            className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors"
+            className="flex items-center gap-1 text-sky-300 hover:text-white transition-colors cursor-pointer"
           >
             <QrCode className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Código QR</span>
           </button>
           <button
             onClick={handleShare}
-            className="flex items-center gap-1 text-slate-300 hover:text-white transition-colors"
+            className="flex items-center gap-1 text-sky-300 hover:text-white transition-colors cursor-pointer"
           >
             <Share2 className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Compartir</span>
@@ -217,19 +217,19 @@ export const PublicBusinessView: React.FC<PublicBusinessViewProps> = ({ business
       </div>
 
       {/* Business Info Bar */}
-      <div className="bg-white dark:bg-slate-850 border-b border-slate-200 dark:border-slate-800 shadow-sm py-3 px-4 sm:px-6">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs text-slate-800 dark:text-slate-200 font-medium">
+      <div className="bg-[#16222f] border-b border-slate-700/80 shadow-sm py-3 px-4 sm:px-6">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3 text-xs text-sky-200 font-medium">
           <div className="flex flex-wrap items-center gap-4">
             {business.address && (
               <span className="flex items-center gap-1.5">
-                <MapPin className="w-3.5 h-3.5 text-[#253745] dark:text-blue-400 shrink-0" />
-                <span className="text-slate-900 dark:text-slate-100">{business.address}</span>
+                <MapPin className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+                <span className="text-white">{business.address}</span>
               </span>
             )}
             {business.schedule && (
               <span className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-[#253745] dark:text-blue-400 shrink-0" />
-                <span className="text-slate-900 dark:text-slate-100">{business.schedule}</span>
+                <Clock className="w-3.5 h-3.5 text-sky-400 shrink-0" />
+                <span className="text-white">{business.schedule}</span>
               </span>
             )}
           </div>
@@ -448,20 +448,20 @@ export const PublicBusinessView: React.FC<PublicBusinessViewProps> = ({ business
 
       {/* Sticky Bottom Cart Bar for Mobile when cart has items */}
       {totalItems > 0 && (
-        <div className="sticky bottom-0 z-30 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 p-3.5 px-4 shadow-xl">
+        <div className="sticky bottom-0 z-30 bg-[#16222f]/95 backdrop-blur-md border-t border-slate-700/80 p-3.5 px-4 shadow-xl">
           <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="relative p-2.5 rounded-xl bg-emerald-600 text-white shadow-md">
+              <div className="relative p-2.5 rounded-xl bg-sky-500 text-slate-950 shadow-md font-bold">
                 <ShoppingBag className="w-5 h-5" />
-                <span className="absolute -top-1.5 -right-1.5 bg-[#253745] text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-white dark:border-slate-900">
+                <span className="absolute -top-1.5 -right-1.5 bg-[#0f1722] text-white text-[10px] font-extrabold w-5 h-5 rounded-full flex items-center justify-center border-2 border-sky-400">
                   {totalItems}
                 </span>
               </div>
               <div>
-                <div className="text-xs font-bold text-slate-900 dark:text-white">
+                <div className="text-xs font-bold text-white">
                   Subtotal: {currency}{subtotal.toFixed(2)}
                 </div>
-                <div className="text-[10px] text-slate-500 dark:text-slate-400">
+                <div className="text-[10px] text-sky-200">
                   {totalItems} {totalItems === 1 ? 'producto' : 'productos'} seleccionados
                 </div>
               </div>
@@ -469,7 +469,7 @@ export const PublicBusinessView: React.FC<PublicBusinessViewProps> = ({ business
 
             <button
               onClick={openCart}
-              className="py-2.5 px-5 bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-bold rounded-xl flex items-center gap-2 shadow-md transition-all"
+              className="py-2.5 px-5 bg-sky-500 hover:bg-sky-400 active:scale-95 text-slate-950 text-xs font-bold rounded-xl flex items-center gap-2 shadow-md transition-all cursor-pointer"
             >
               <MessageCircle className="w-4 h-4 fill-current" />
               <span>Ver Pedido</span>
@@ -490,12 +490,12 @@ export const PublicBusinessView: React.FC<PublicBusinessViewProps> = ({ business
       </a>
 
       {/* Footer Powered By watermark */}
-      <footer className="py-6 border-t border-slate-200 dark:border-slate-800 text-center text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 mt-auto">
+      <footer className="py-6 border-t border-slate-700/80 text-center text-xs text-sky-200 bg-[#111a24] mt-auto">
         <p>
           © {new Date().getFullYear()} {business.name} • Impulsado por{' '}
           <button
             onClick={goToLanding}
-            className="font-bold text-[#253745] dark:text-blue-400 hover:underline inline-flex items-center gap-1"
+            className="font-bold text-sky-400 hover:text-sky-300 hover:underline inline-flex items-center gap-1 cursor-pointer"
           >
             D. E. K NovaCore
           </button>

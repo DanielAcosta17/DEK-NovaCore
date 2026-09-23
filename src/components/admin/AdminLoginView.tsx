@@ -134,22 +134,22 @@ export const AdminLoginView: React.FC = () => {
       </div>
 
       {/* Login Card */}
-      <div className="w-full max-w-md bg-slate-850/90 border border-slate-750 rounded-3xl shadow-2xl p-6 sm:p-8 backdrop-blur-xl relative z-10 my-8">
+      <div className="w-full max-w-md bg-[#16222f] border border-slate-700/80 rounded-3xl shadow-2xl p-6 sm:p-8 backdrop-blur-xl relative z-10 my-8">
         {/* Brand header */}
         <div className="text-center space-y-2 mb-6">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#253745] to-[#364f66] border border-slate-600 shadow-xl mb-1 text-white">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-tr from-[#1f3042] to-sky-600 border border-sky-500/30 shadow-xl mb-1 text-white">
             <Layers className="w-7 h-7" />
           </div>
           <h1 className="text-xl sm:text-2xl font-black tracking-tight text-white flex items-center justify-center gap-2">
             <span>D. E. K NovaCore</span>
           </h1>
-          <p className="text-xs text-slate-400 max-w-xs mx-auto">
-            Acceso seguro con <strong className="text-slate-200">Firebase Authentication</strong> al panel de administración
+          <p className="text-xs text-sky-200 max-w-xs mx-auto">
+            Acceso seguro con <strong className="text-white">Firebase Authentication</strong> al panel de administración
           </p>
         </div>
 
         {/* Mode Selector Tabs */}
-        <div className="flex p-1 bg-slate-800/80 rounded-2xl border border-slate-700/60 mb-6 text-xs font-semibold">
+        <div className="flex p-1 bg-[#0f1722] rounded-2xl border border-slate-700 mb-6 text-xs font-semibold">
           <button
             type="button"
             onClick={() => {
@@ -157,10 +157,10 @@ export const AdminLoginView: React.FC = () => {
               setErrorMessage(null);
               setSuccessMessage(null);
             }}
-            className={`flex-1 py-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 py-2 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
               mode === 'login'
-                ? 'bg-[#253745] text-white shadow'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-sky-500 text-slate-950 font-bold shadow'
+                : 'text-sky-300 hover:text-white'
             }`}
           >
             <LogIn className="w-3.5 h-3.5" />
@@ -173,10 +173,10 @@ export const AdminLoginView: React.FC = () => {
               setErrorMessage(null);
               setSuccessMessage(null);
             }}
-            className={`flex-1 py-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 py-2 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
               mode === 'register'
-                ? 'bg-[#253745] text-white shadow'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-sky-500 text-slate-950 font-bold shadow'
+                : 'text-sky-300 hover:text-white'
             }`}
           >
             <UserPlus className="w-3.5 h-3.5" />
@@ -189,10 +189,10 @@ export const AdminLoginView: React.FC = () => {
               setErrorMessage(null);
               setSuccessMessage(null);
             }}
-            className={`flex-1 py-2 rounded-xl flex items-center justify-center gap-1.5 transition-all ${
+            className={`flex-1 py-2 rounded-xl flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
               mode === 'forgot'
-                ? 'bg-[#253745] text-white shadow'
-                : 'text-slate-400 hover:text-slate-200'
+                ? 'bg-sky-500 text-slate-950 font-bold shadow'
+                : 'text-sky-300 hover:text-white'
             }`}
           >
             <KeyRound className="w-3.5 h-3.5" />
@@ -202,14 +202,14 @@ export const AdminLoginView: React.FC = () => {
 
         {/* Status notice */}
         {isFirebaseConnected ? (
-          <div className="mb-5 p-3 rounded-2xl bg-emerald-950/30 border border-emerald-800/60 flex items-center gap-2.5 text-xs text-emerald-300">
+          <div className="mb-5 p-3 rounded-2xl bg-emerald-950/40 border border-emerald-800 text-xs text-emerald-300 flex items-center gap-2.5">
             <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
             <div className="truncate">
               Autenticación directa con <strong>Firebase Cloud</strong> ({firebaseStatus.projectId})
             </div>
           </div>
         ) : (
-          <div className="mb-5 p-3 rounded-2xl bg-amber-950/30 border border-amber-800/60 flex items-start justify-between gap-2.5 text-xs text-amber-300">
+          <div className="mb-5 p-3 rounded-2xl bg-amber-950/40 border border-amber-800 flex items-start justify-between gap-2.5 text-xs text-amber-300">
             <div className="flex items-start gap-2">
               <AlertCircle className="w-4 h-4 shrink-0 text-amber-400 mt-0.5" />
               <div>
@@ -218,7 +218,7 @@ export const AdminLoginView: React.FC = () => {
             </div>
             <button
               onClick={handleFillDemo}
-              className="shrink-0 px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-[11px] font-bold text-amber-200 border border-amber-500/40"
+              className="shrink-0 px-2 py-1 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-[11px] font-bold text-amber-200 border border-amber-500/40 cursor-pointer"
             >
               Autollenar
             </button>
@@ -227,7 +227,7 @@ export const AdminLoginView: React.FC = () => {
 
         {/* Error message */}
         {errorMessage && (
-          <div className="mb-5 p-3.5 rounded-2xl bg-rose-950/50 border border-rose-800/80 text-rose-200 text-xs flex items-start gap-2.5 animate-fadeIn">
+          <div className="mb-5 p-3.5 rounded-2xl bg-rose-950/60 border border-rose-800 text-rose-200 text-xs flex items-start gap-2.5 animate-fadeIn">
             <AlertCircle className="w-4 h-4 text-rose-400 shrink-0 mt-0.5" />
             <span className="leading-relaxed">{errorMessage}</span>
           </div>
@@ -235,7 +235,7 @@ export const AdminLoginView: React.FC = () => {
 
         {/* Success message */}
         {successMessage && (
-          <div className="mb-5 p-3.5 rounded-2xl bg-emerald-950/50 border border-emerald-800/80 text-emerald-200 text-xs flex items-start gap-2.5 animate-fadeIn">
+          <div className="mb-5 p-3.5 rounded-2xl bg-emerald-950/60 border border-emerald-800 text-emerald-200 text-xs flex items-start gap-2.5 animate-fadeIn">
             <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
             <span className="leading-relaxed">{successMessage}</span>
           </div>
@@ -246,7 +246,7 @@ export const AdminLoginView: React.FC = () => {
           {/* Name field (register only) */}
           {mode === 'register' && (
             <div>
-              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+              <label className="block text-xs font-semibold text-sky-200 mb-1.5">
                 Nombre del Administrador
               </label>
               <input
@@ -254,25 +254,25 @@ export const AdminLoginView: React.FC = () => {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Ej. Carlos Mendoza"
-                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/90 border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-[#0f1722] border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all"
               />
             </div>
           )}
 
           {/* Email field */}
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+            <label className="block text-xs font-semibold text-sky-200 mb-1.5">
               Correo Electrónico
             </label>
             <div className="relative">
-              <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+              <Mail className="w-4 h-4 text-sky-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               <input
                 type="email"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="admin@deknovacore.com"
-                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-800/90 border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all"
+                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-[#0f1722] border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all"
               />
             </div>
           </div>
@@ -281,33 +281,33 @@ export const AdminLoginView: React.FC = () => {
           {mode !== 'forgot' && (
             <div>
               <div className="flex items-center justify-between mb-1.5">
-                <label className="block text-xs font-semibold text-slate-300">
+                <label className="block text-xs font-semibold text-sky-200">
                   Contraseña
                 </label>
                 {mode === 'login' && (
                   <button
                     type="button"
                     onClick={() => setMode('forgot')}
-                    className="text-[11px] text-blue-400 hover:text-blue-300 transition-colors"
+                    className="text-[11px] text-sky-400 hover:text-sky-300 transition-colors cursor-pointer"
                   >
                     ¿Olvidaste tu contraseña?
                   </button>
                 )}
               </div>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-sky-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-slate-800/90 border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all"
+                  className="w-full pl-10 pr-10 py-2.5 rounded-xl bg-[#0f1722] border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-sky-400 focus:ring-1 focus:ring-sky-400 transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white cursor-pointer"
                   tabIndex={-1}
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -320,10 +320,10 @@ export const AdminLoginView: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full mt-2 py-3 rounded-xl bg-gradient-to-r from-[#253745] to-[#334b5f] hover:from-[#1d2c38] hover:to-[#2a3f50] text-white font-bold text-xs shadow-lg shadow-black/30 border border-slate-600/40 flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer"
+            className="w-full mt-2 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs shadow-lg shadow-black/30 border border-sky-400/40 flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer"
           >
             {loading ? (
-              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              <div className="w-4 h-4 border-2 border-slate-950/30 border-t-slate-950 rounded-full animate-spin" />
             ) : mode === 'login' ? (
               <>
                 <LogIn className="w-4 h-4" />
@@ -344,11 +344,11 @@ export const AdminLoginView: React.FC = () => {
         </form>
 
         {/* Footer actions inside card */}
-        <div className="mt-6 pt-5 border-t border-slate-750 flex items-center justify-between text-xs text-slate-400">
+        <div className="mt-6 pt-5 border-t border-slate-700/80 flex items-center justify-between text-xs text-sky-300">
           <button
             type="button"
             onClick={handleFillDemo}
-            className="hover:text-slate-200 transition-colors flex items-center gap-1 text-[11px]"
+            className="hover:text-white transition-colors flex items-center gap-1 text-[11px] cursor-pointer"
           >
             <Sparkles className="w-3.5 h-3.5 text-amber-400" />
             <span>Llenar credenciales demo</span>
@@ -357,7 +357,7 @@ export const AdminLoginView: React.FC = () => {
           <button
             type="button"
             onClick={() => setIsFirebaseModalOpen(true)}
-            className="text-blue-400 hover:text-blue-300 font-semibold text-[11px] flex items-center gap-1 transition-colors"
+            className="text-sky-400 hover:text-white font-semibold text-[11px] flex items-center gap-1 transition-colors cursor-pointer"
           >
             <Shield className="w-3.5 h-3.5" />
             <span>Reglas Firebase</span>

@@ -87,15 +87,15 @@ export const CategoryManagerView: React.FC = () => {
 
   if (!activeBusiness) {
     return (
-      <div className="p-12 text-center bg-white dark:bg-slate-850 rounded-2xl border border-dashed border-slate-300 dark:border-slate-750 space-y-4">
-        <div className="w-12 h-12 mx-auto rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 flex items-center justify-center">
+      <div className="p-12 text-center bg-[#16222f] dark:bg-[#111a24] rounded-2xl border border-dashed border-slate-700 space-y-4">
+        <div className="w-12 h-12 mx-auto rounded-xl bg-slate-800 text-sky-400 flex items-center justify-center">
           <FolderTree className="w-6 h-6" />
         </div>
         <div className="space-y-1">
-          <h3 className="text-base font-bold text-slate-800 dark:text-white">
+          <h3 className="text-base font-bold text-white">
             Aún no tienes ningún negocio seleccionado
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+          <p className="text-xs text-sky-200 max-w-sm mx-auto">
             Para organizar categorías, primero debes registrar o seleccionar un negocio en la sección "Mis Negocios".
           </p>
         </div>
@@ -108,17 +108,17 @@ export const CategoryManagerView: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+          <h2 className="text-xl font-bold text-white">
             Categorías de {activeBusiness?.name}
           </h2>
-          <p className="text-xs text-slate-500 dark:text-slate-400">
+          <p className="text-xs text-sky-200">
             Organiza los productos y platos en secciones para facilitar la búsqueda al cliente.
           </p>
         </div>
 
         <button
           onClick={openCreateModal}
-          className="py-2.5 px-4 bg-[#253745] hover:bg-[#1a2630] text-white text-xs font-bold rounded-xl flex items-center gap-2 shadow-md transition-all self-start sm:self-auto"
+          className="py-2.5 px-4 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl flex items-center gap-2 shadow-md transition-all self-start sm:self-auto cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           <span>Nueva Categoría</span>
@@ -132,28 +132,28 @@ export const CategoryManagerView: React.FC = () => {
           return (
             <div
               key={cat.id}
-              className="p-5 bg-white dark:bg-slate-850 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex items-start justify-between"
+              className="p-5 bg-[#16222f] dark:bg-[#111a24] rounded-2xl border border-slate-700/80 shadow-md flex items-start justify-between"
             >
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 text-[#253745] dark:text-blue-400 flex items-center justify-center font-bold text-xs">
+                  <div className="w-8 h-8 rounded-lg bg-sky-950/80 border border-sky-800/60 text-sky-400 flex items-center justify-center font-bold text-xs">
                     <Tag className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-950 dark:text-white text-sm">
+                    <h3 className="font-bold text-white text-sm">
                       {cat.name}
                     </h3>
-                    <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">
+                    <span className="text-[11px] font-semibold text-sky-300">
                       Orden: #{cat.sortOrder}
                     </span>
                   </div>
                 </div>
 
-                <p className="text-xs sm:text-[13px] text-slate-800 dark:text-slate-200 line-clamp-2 leading-relaxed font-normal">
+                <p className="text-xs sm:text-[13px] text-sky-100 line-clamp-2 leading-relaxed font-normal">
                   {cat.description || 'Sin descripción'}
                 </p>
 
-                <div className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                <div className="text-[11px] font-bold text-emerald-400">
                   {prodCount} {prodCount === 1 ? 'producto' : 'productos'}
                 </div>
               </div>
@@ -161,13 +161,13 @@ export const CategoryManagerView: React.FC = () => {
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => openEditModal(cat)}
-                  className="p-1.5 text-slate-400 hover:text-slate-800 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="p-1.5 text-sky-300 hover:text-white rounded-lg hover:bg-slate-800 cursor-pointer"
                 >
                   <Edit2 className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => handleDelete(cat)}
-                  className="p-1.5 text-rose-400 hover:text-rose-600 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40"
+                  className="p-1.5 text-rose-400 hover:text-rose-300 rounded-lg hover:bg-rose-950/40 cursor-pointer"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -179,15 +179,15 @@ export const CategoryManagerView: React.FC = () => {
 
       {/* Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 p-6 overflow-hidden text-xs">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-4">
-              <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
+          <div className="relative w-full max-w-md bg-[#16222f] dark:bg-[#111a24] rounded-2xl shadow-2xl border border-slate-700/80 p-6 overflow-hidden text-xs">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-700/80 mb-4">
+              <h3 className="font-bold text-white text-sm">
                 {editingCategory ? 'Editar Categoría' : 'Nueva Categoría'}
               </h3>
               <button
                 onClick={() => setIsModalOpen(false)}
-                className="p-1.5 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200"
+                className="p-1.5 text-sky-400 hover:text-white cursor-pointer"
               >
                 <X className="w-4 h-4" />
               </button>
@@ -195,7 +195,7 @@ export const CategoryManagerView: React.FC = () => {
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block font-semibold text-sky-200 mb-1">
                   Nombre de la Categoría *
                 </label>
                 <input
@@ -204,12 +204,12 @@ export const CategoryManagerView: React.FC = () => {
                   placeholder="Ej: Pasteles Temáticos, Entradas, Calzado..."
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block font-semibold text-sky-200 mb-1">
                   Descripción breve (Opcional)
                 </label>
                 <input
@@ -217,33 +217,33 @@ export const CategoryManagerView: React.FC = () => {
                   placeholder="Ej: Deliciosos postres hechos el mismo día"
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block font-semibold text-sky-200 mb-1">
                   Posición / Orden de aparición
                 </label>
                 <input
                   type="number"
                   value={sortOrder}
                   onChange={(e) => setSortOrder(parseInt(e.target.value) || 1)}
-                  className="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none"
+                  className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none"
                 />
               </div>
 
-              <div className="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-end gap-2">
+              <div className="pt-4 border-t border-slate-700/80 flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
+                  className="px-4 py-2 rounded-xl text-sky-300 hover:text-white hover:bg-slate-800 cursor-pointer"
                 >
                   Cancelar
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 bg-[#253745] hover:bg-[#1a2630] text-white font-bold rounded-xl shadow transition-all"
+                  className="px-5 py-2.5 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold rounded-xl shadow transition-all cursor-pointer"
                 >
                   Guardar
                 </button>

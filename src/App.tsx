@@ -77,7 +77,7 @@ const AppContent: React.FC = () => {
 
   // Default: Landing Page
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 flex flex-col transition-colors duration-200 selection:bg-[#253745] selection:text-white">
+    <div className="min-h-screen bg-[#0d1520] text-slate-100 flex flex-col transition-colors duration-200 selection:bg-sky-500 selection:text-slate-950">
       {/* Sticky Navigation */}
       <Navbar
         onOpenCreateBusiness={goToAdmin}
