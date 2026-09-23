@@ -135,13 +135,13 @@ export const Footer: React.FC<FooterProps> = ({ onOpenFirebaseModal }) => {
               )}
               <li>
                 <a
-                  href="https://wa.me/50762348901?text=Hola%20D.%20E.%20K%20NovaCore,%20quiero%20informaci%C3%B3n%20sobre%20un%20cat%C3%A1logo%20digital"
+                  href="https://wa.me/50760244779?text=Hola%20D.%20E.%20K%20NovaCore,%20quiero%20informaci%C3%B3n%20sobre%20un%20cat%C3%A1logo%20digital"
                   target="_blank"
                   rel="noreferrer"
                   className="hover:text-emerald-400 transition-colors flex items-center gap-1"
                 >
                   <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
-                  Asistencia por WhatsApp
+                  WhatsApp Directo (+507 6024-4779)
                 </a>
               </li>
             </ul>

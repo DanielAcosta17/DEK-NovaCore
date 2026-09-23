@@ -187,7 +187,7 @@ export const PublicBusinessView: React.FC<PublicBusinessViewProps> = ({ business
           {/* Quick contact buttons on Cover */}
           <div className="flex items-center gap-2">
             <a
-              href={`https://wa.me/${business.whatsapp.replace(/\D/g, '')}?text=Hola%20${encodeURIComponent(business.name)},%20deseo%20hacer%20una%20consulta`}
+              href={`https://wa.me/${(business.whatsapp && business.whatsapp.replace(/\D/g, '').length >= 7 && !business.whatsapp.includes('60000000')) ? business.whatsapp.replace(/\D/g, '') : '50760244779'}?text=Hola%20${encodeURIComponent(business.name)},%20deseo%20hacer%20una%20consulta`}
               target="_blank"
               rel="noreferrer"
               className="py-2 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl flex items-center gap-2 shadow-md transition-all hover:scale-105"
@@ -197,7 +197,7 @@ export const PublicBusinessView: React.FC<PublicBusinessViewProps> = ({ business
             </a>
 
             <a
-              href={`tel:${business.phone}`}
+              href={`tel:${business.phone || '+507 6024-4779'}`}
               className="py-2 px-3.5 bg-white/20 hover:bg-white/30 backdrop-blur-md text-white text-xs font-semibold rounded-xl flex items-center gap-1.5 transition-all"
               title="Llamar"
             >
@@ -480,7 +480,7 @@ export const PublicBusinessView: React.FC<PublicBusinessViewProps> = ({ business
 
       {/* Floating WhatsApp Quick Action Button */}
       <a
-        href={`https://wa.me/${business.whatsapp.replace(/\D/g, '')}?text=Hola%20${encodeURIComponent(business.name)},%20tengo%20una%20pregunta%20sobre%20su%20cat%C3%A1logo`}
+        href={`https://wa.me/${(business.whatsapp && business.whatsapp.replace(/\D/g, '').length >= 7 && !business.whatsapp.includes('60000000')) ? business.whatsapp.replace(/\D/g, '') : '50760244779'}?text=Hola%20${encodeURIComponent(business.name)},%20tengo%20una%20pregunta%20sobre%20su%20cat%C3%A1logo`}
         target="_blank"
         rel="noreferrer"
         className="fixed bottom-20 sm:bottom-6 right-6 z-30 w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-full shadow-2xl flex items-center justify-center transition-all hover:scale-110 active:scale-95 shine-effect"

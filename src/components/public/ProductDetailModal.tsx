@@ -45,7 +45,10 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   };
 
   const handleQuickWhatsApp = () => {
-    const cleanPhone = business.whatsapp.replace(/\D/g, '');
+    const bizDigits = business.whatsapp ? business.whatsapp.replace(/\D/g, '') : '';
+    const cleanPhone = (bizDigits.length >= 7 && !bizDigits.includes('60000000'))
+      ? bizDigits
+      : '50760244779';
     const lineTotal = (product.price * quantity).toFixed(2);
     let msg = `Hola *${business.name}*, me interesa ordenar directamente este producto:\n\n`;
     msg += `▪ *${product.name}*\n`;

@@ -157,7 +157,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     const message = generateWhatsAppMessage(business);
-    const cleanPhone = business.whatsapp.replace(/\D/g, '');
+    // Número directo oficial de Panamá (+507 6024 4779) para recepción de pedidos
+    const bizDigits = business.whatsapp ? business.whatsapp.replace(/\D/g, '') : '';
+    const cleanPhone = (bizDigits.length >= 7 && !bizDigits.includes('60000000'))
+      ? bizDigits
+      : '50760244779';
+
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${cleanPhone}?text=${encodedMessage}`;
 

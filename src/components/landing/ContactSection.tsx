@@ -31,7 +31,7 @@ export const ContactSection: React.FC = () => {
       `_Enviado desde el formulario web de deknovacore.com_`;
 
     const encoded = encodeURIComponent(msg);
-    window.open(`https://wa.me/50762348901?text=${encoded}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://wa.me/50760244779?text=${encoded}`, '_blank', 'noopener,noreferrer');
     setSubmitted(true);
   };
 
@@ -56,7 +56,7 @@ export const ContactSection: React.FC = () => {
 
             <div className="space-y-4 pt-2 text-xs">
               <a
-                href="https://wa.me/50762348901?text=Hola%20D.%20E.%20K%20NovaCore,%20quiero%20m%C3%A1s%20informaci%C3%B3n"
+                href="https://wa.me/50760244779?text=Hola%20D.%20E.%20K%20NovaCore,%20quiero%20m%C3%A1s%20informaci%C3%B3n"
                 target="_blank"
                 rel="noreferrer"
                 className="p-3.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 flex items-center gap-3.5 text-emerald-900 dark:text-emerald-200 hover:scale-[1.01] transition-transform"
@@ -66,19 +66,22 @@ export const ContactSection: React.FC = () => {
                 </div>
                 <div>
                   <div className="font-bold text-sm">WhatsApp Directo</div>
-                  <div className="text-[11px] opacity-80">+507 6234-8901 (Atención Rápida)</div>
+                  <div className="text-[11px] opacity-80">+507 6024-4779 (Atención Rápida)</div>
                 </div>
               </a>
 
-              <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center shrink-0">
+              <a
+                href="mailto:danielacostaperez17@gmail.com"
+                className="p-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center gap-3.5 hover:border-blue-400 dark:hover:border-blue-500 transition-colors"
+              >
+                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="font-bold text-slate-900 dark:text-white">Correo Electrónico</div>
-                  <div className="text-[11px] text-slate-500">contacto@deknovacore.com</div>
+                  <div className="font-bold text-slate-900 dark:text-white">Correo Electrónico de Contacto</div>
+                  <div className="text-[11px] text-blue-600 dark:text-blue-400 font-medium">danielacostaperez17@gmail.com</div>
                 </div>
-              </div>
+              </a>
 
               <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center gap-3.5">
                 <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center shrink-0">
