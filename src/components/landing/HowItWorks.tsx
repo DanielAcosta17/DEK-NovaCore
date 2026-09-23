@@ -66,23 +66,23 @@ export const HowItWorks: React.FC = () => {
             return (
               <div
                 key={s.step}
-                className="relative bg-white dark:bg-slate-850 p-6 rounded-2xl border border-slate-200 dark:border-slate-750 shadow-sm flex flex-col justify-between group hover:border-[#253745] dark:hover:border-blue-500 transition-all duration-300"
+                className="relative bg-[#16222f] dark:bg-[#111a24] p-6 rounded-2xl border border-slate-700/80 shadow-lg shadow-slate-950/20 flex flex-col justify-between group hover:border-sky-500/50 hover:shadow-xl transition-all duration-300"
               >
                 {/* Step badge */}
                 <div className="flex items-center justify-between mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-[#253745] dark:text-blue-400 flex items-center justify-center font-black text-sm group-hover:scale-110 transition-transform">
+                  <div className="w-10 h-10 rounded-xl bg-sky-950/80 text-sky-400 border border-sky-800/60 flex items-center justify-center font-black text-sm group-hover:scale-110 transition-transform">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-2xl font-black text-slate-200 dark:text-slate-700">
+                  <span className="text-2xl font-black text-sky-500/30">
                     {s.step}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2">
+                  <h3 className="text-sm font-bold text-white mb-2">
                     {s.title}
                   </h3>
-                  <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                  <p className="text-sm text-sky-100 leading-relaxed font-normal">
                     {s.desc}
                   </p>
                 </div>

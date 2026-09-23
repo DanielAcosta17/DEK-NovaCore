@@ -252,18 +252,18 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
 
                 {/* Details */}
                 <div className="p-4 space-y-2 text-xs">
-                  <div className="text-[11px] font-mono text-slate-500 truncate">
+                  <div className="text-[11px] font-mono font-bold text-slate-800 dark:text-slate-200 truncate">
                     /negocio/{biz.slug}
                   </div>
-                  <p className="text-slate-600 dark:text-slate-300 text-[11px] line-clamp-2">
+                  <p className="text-slate-800 dark:text-slate-200 text-xs line-clamp-2 leading-relaxed">
                     {biz.description}
                   </p>
 
-                  <div className="pt-2 flex flex-wrap gap-2 text-[10px] text-slate-500">
-                    <span className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
-                      <MessageCircle className="w-3 h-3 text-emerald-500" /> WhatsApp
+                  <div className="pt-2 flex flex-wrap gap-2 text-[10px] text-slate-700 dark:text-slate-300 font-semibold">
+                    <span className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
+                      <MessageCircle className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> WhatsApp
                     </span>
-                    <span className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded">
+                    <span className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded border border-slate-200 dark:border-slate-700">
                       <Palette className="w-3 h-3" style={{ color: biz.primaryColor }} /> {biz.primaryColor}
                     </span>
                   </div>

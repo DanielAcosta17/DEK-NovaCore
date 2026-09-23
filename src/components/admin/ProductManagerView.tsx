@@ -218,7 +218,7 @@ export const ProductManagerView: React.FC<ProductManagerViewProps> = ({
       <div className="bg-white dark:bg-slate-850 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-500 uppercase tracking-wider text-[10px]">
+            <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-800 dark:text-slate-200 font-bold uppercase tracking-wider text-[10px]">
               <tr>
                 <th className="py-3 px-4">Producto</th>
                 <th className="py-3 px-4">Categoría</th>
@@ -232,7 +232,7 @@ export const ProductManagerView: React.FC<ProductManagerViewProps> = ({
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
               {filteredProducts.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-12 text-center text-slate-500">
+                  <td colSpan={7} className="py-12 text-center text-slate-600 dark:text-slate-400 font-medium">
                     No hay productos registrados con estos filtros.
                   </td>
                 </tr>
@@ -248,22 +248,22 @@ export const ProductManagerView: React.FC<ProductManagerViewProps> = ({
                           className="w-11 h-11 rounded-xl object-cover border border-slate-200 dark:border-slate-700 shrink-0"
                         />
                         <div>
-                          <div className="font-bold text-slate-900 dark:text-white">
+                          <div className="font-bold text-slate-950 dark:text-white">
                             {p.name}
                           </div>
                           {p.sku && (
-                            <div className="text-[10px] font-mono text-slate-400">
+                            <div className="text-[11px] font-mono font-semibold text-slate-700 dark:text-slate-300">
                               SKU: {p.sku}
                             </div>
                           )}
                         </div>
                       </td>
 
-                      <td className="py-3 px-4 text-slate-600 dark:text-slate-300">
+                      <td className="py-3 px-4 font-medium text-slate-800 dark:text-slate-200">
                         {cat?.name || 'General'}
                       </td>
 
-                      <td className="py-3 px-4 font-bold text-slate-900 dark:text-white">
+                      <td className="py-3 px-4 font-black text-slate-950 dark:text-white">
                         {currency}{p.price.toFixed(2)}
                       </td>
 

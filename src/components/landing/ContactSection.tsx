@@ -72,24 +72,24 @@ export const ContactSection: React.FC = () => {
 
               <a
                 href="mailto:danielacostaperez17@gmail.com"
-                className="p-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center gap-3.5 hover:border-blue-400 dark:hover:border-blue-500 transition-colors"
+                className="p-3.5 rounded-2xl bg-[#16222f] dark:bg-[#111a24] border border-slate-700/80 flex items-center gap-3.5 hover:border-sky-400 transition-colors shadow-md"
               >
-                <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-300 flex items-center justify-center shrink-0">
+                <div className="w-10 h-10 rounded-xl bg-sky-950/80 text-sky-400 border border-sky-800/60 flex items-center justify-center shrink-0">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="font-bold text-slate-900 dark:text-white">Correo Electrónico de Contacto</div>
-                  <div className="text-[11px] text-blue-600 dark:text-blue-400 font-medium">danielacostaperez17@gmail.com</div>
+                  <div className="font-bold text-white">Correo Electrónico de Contacto</div>
+                  <div className="text-[11px] text-sky-300 font-medium">danielacostaperez17@gmail.com</div>
                 </div>
               </a>
 
-              <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center shrink-0">
+              <div className="p-3.5 rounded-2xl bg-[#16222f] dark:bg-[#111a24] border border-slate-700/80 flex items-center gap-3.5 shadow-md">
+                <div className="w-10 h-10 rounded-xl bg-sky-950/80 text-sky-400 border border-sky-800/60 flex items-center justify-center shrink-0">
                   <Clock className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="font-bold text-slate-900 dark:text-white">Horario de Soporte</div>
-                  <div className="text-[11px] text-slate-500">Lunes a Sábado: 8:00 AM - 7:00 PM</div>
+                  <div className="font-bold text-white">Horario de Soporte</div>
+                  <div className="text-[11px] text-sky-300 font-medium">Lunes a Sábado: 8:00 AM - 7:00 PM</div>
                 </div>
               </div>
             </div>
@@ -97,30 +97,30 @@ export const ContactSection: React.FC = () => {
 
           {/* Right Form */}
           <div className="lg:col-span-7">
-            <div className="bg-white dark:bg-slate-850 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-750 shadow-lg">
+            <div className="bg-[#16222f] dark:bg-[#111a24] p-6 sm:p-8 rounded-3xl border border-slate-700/80 shadow-2xl shadow-slate-950/30">
               <div className="mb-6">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                <h3 className="text-xl font-bold text-white">
                   Solicita tu Sitio o Catálogo
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                <p className="text-xs sm:text-[13px] text-sky-300 font-medium mt-0.5">
                   Completa tus datos y te enviaremos una propuesta inmediata por WhatsApp.
                 </p>
               </div>
 
               {submitted ? (
-                <div className="p-6 bg-emerald-50 dark:bg-emerald-950/40 rounded-2xl border border-emerald-200 dark:border-emerald-800 text-center space-y-3">
-                  <div className="w-12 h-12 rounded-full bg-emerald-100 dark:bg-emerald-900 text-emerald-600 dark:text-emerald-300 mx-auto flex items-center justify-center">
+                <div className="p-6 bg-emerald-950/50 rounded-2xl border border-emerald-800 text-center space-y-3">
+                  <div className="w-12 h-12 rounded-full bg-emerald-900 text-emerald-300 mx-auto flex items-center justify-center">
                     <CheckCircle2 className="w-6 h-6" />
                   </div>
-                  <h4 className="font-bold text-slate-900 dark:text-white text-base">
+                  <h4 className="font-bold text-white text-base">
                     ¡Mensaje Abierto en WhatsApp!
                   </h4>
-                  <p className="text-xs text-slate-600 dark:text-slate-300 max-w-sm mx-auto">
+                  <p className="text-xs text-sky-100 max-w-sm mx-auto">
                     Tu solicitud ha sido formateada. Presiona enviar en WhatsApp y nuestro equipo te responderá enseguida.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="text-xs text-emerald-700 dark:text-emerald-400 font-bold hover:underline pt-2"
+                    className="text-xs text-emerald-400 font-bold hover:underline pt-2 cursor-pointer"
                   >
                     Enviar otro mensaje
                   </button>
@@ -129,7 +129,7 @@ export const ContactSection: React.FC = () => {
                 <form onSubmit={handleSubmit} className="space-y-4 text-xs">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block font-bold text-sky-200 mb-1">
                         Tu Nombre Completo *
                       </label>
                       <input
@@ -138,12 +138,12 @@ export const ContactSection: React.FC = () => {
                         placeholder="Ej: Carlos Santana"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#253745]"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-700 bg-[#0f1722] text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400"
                       />
                     </div>
 
                     <div>
-                      <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block font-bold text-sky-200 mb-1">
                         Nombre de tu Negocio *
                       </label>
                       <input
@@ -152,20 +152,20 @@ export const ContactSection: React.FC = () => {
                         placeholder="Ej: Panadería El Sol"
                         value={businessName}
                         onChange={(e) => setBusinessName(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#253745]"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-700 bg-[#0f1722] text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block font-bold text-sky-200 mb-1">
                         Tipo de Negocio *
                       </label>
                       <select
                         value={businessType}
                         onChange={(e) => setBusinessType(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#253745]"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400"
                       >
                         <option value="Restaurante / Cafetería">Restaurante / Cafetería</option>
                         <option value="Pastelería / Repostería">Pastelería / Repostería</option>
@@ -180,7 +180,7 @@ export const ContactSection: React.FC = () => {
                     </div>
 
                     <div>
-                      <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                      <label className="block font-bold text-sky-200 mb-1">
                         Tu Teléfono / WhatsApp *
                       </label>
                       <input
@@ -189,13 +189,13 @@ export const ContactSection: React.FC = () => {
                         placeholder="+507 6000-0000"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
-                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#253745]"
+                        className="w-full px-3.5 py-2.5 rounded-xl border border-slate-700 bg-[#0f1722] text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                    <label className="block font-bold text-sky-200 mb-1">
                       ¿Qué necesitas? (Opcional)
                     </label>
                     <textarea
@@ -203,7 +203,7 @@ export const ContactSection: React.FC = () => {
                       placeholder="Cuéntanos sobre tus productos o servicios, cuántos productos tienes, si necesitas código QR para mesas, etc."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#253745]"
+                      className="w-full px-3.5 py-2.5 rounded-xl border border-slate-700 bg-[#0f1722] text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:border-sky-400"
                     />
                   </div>
 

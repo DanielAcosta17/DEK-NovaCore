@@ -24,7 +24,7 @@ interface AuthContextType {
 }
 
 export const DEFAULT_DEMO_CREDENTIALS = {
-  email: 'danielacostaperez17@gmail.com',
+  email: 'admin@deknovacore.com',
   password: '',
 };
 

@@ -81,7 +81,7 @@ export const Services: React.FC = () => {
             return (
               <div
                 key={idx}
-                className={`p-6 sm:p-7 bg-white dark:bg-slate-850 rounded-2xl border border-slate-200 dark:border-slate-750 shadow-sm hover:shadow-md transition-all duration-300 flex flex-col justify-between ${
+                className={`p-6 sm:p-7 bg-[#16222f] dark:bg-[#111a24] rounded-2xl border border-slate-700/80 shadow-lg shadow-slate-950/20 hover:border-sky-500/50 hover:shadow-xl transition-all duration-300 flex flex-col justify-between ${
                   idx === 4 ? 'md:col-span-2 lg:col-span-1' : ''
                 }`}
               >
@@ -91,23 +91,23 @@ export const Services: React.FC = () => {
                   </div>
 
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                    <h3 className="text-lg font-bold text-white">
                       {srv.title}
                     </h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mt-0.5">
+                    <p className="text-xs sm:text-sm text-sky-300 font-semibold mt-0.5">
                       {srv.subtitle}
                     </p>
                   </div>
 
-                  <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                  <p className="text-sm text-sky-100 leading-relaxed font-normal">
                     {srv.description}
                   </p>
                 </div>
 
-                <div className="pt-5 mt-5 border-t border-slate-100 dark:border-slate-800 space-y-2">
+                <div className="pt-5 mt-5 border-t border-slate-700/70 space-y-2.5">
                   {srv.highlights.map((h, hIdx) => (
-                    <div key={hIdx} className="flex items-center gap-2 text-xs text-slate-700 dark:text-slate-300">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                    <div key={hIdx} className="flex items-center gap-2 text-xs sm:text-sm font-medium text-sky-200">
+                      <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
                       <span>{h}</span>
                     </div>
                   ))}

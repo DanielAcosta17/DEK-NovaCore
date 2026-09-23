@@ -134,23 +134,23 @@ export const OrdersManagerView: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {/* Customer Info */}
-                  <div className="space-y-1.5 bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-xl">
-                    <div className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                      <User className="w-3.5 h-3.5 text-slate-500" />
+                  <div className="space-y-1.5 bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-xl border border-slate-200/60 dark:border-slate-700/60">
+                    <div className="font-bold text-slate-950 dark:text-white flex items-center gap-1.5">
+                      <User className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
                       <span>{order.customerName}</span>
                     </div>
-                    <div className="text-slate-600 dark:text-slate-300 flex items-center gap-1.5">
-                      <Phone className="w-3.5 h-3.5 text-slate-500" />
+                    <div className="text-slate-800 dark:text-slate-200 font-medium flex items-center gap-1.5">
+                      <Phone className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
                       <span>{order.customerPhone}</span>
                     </div>
                     {order.deliveryAddress && (
-                      <div className="text-slate-600 dark:text-slate-300 flex items-center gap-1.5">
-                        <MapPin className="w-3.5 h-3.5 text-slate-500 shrink-0" />
+                      <div className="text-slate-800 dark:text-slate-200 font-medium flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300 shrink-0" />
                         <span>{order.deliveryAddress}</span>
                       </div>
                     )}
                     {order.notes && (
-                      <div className="text-amber-600 dark:text-amber-400 italic pt-1">
+                      <div className="text-amber-700 dark:text-amber-300 font-medium italic pt-1">
                         &quot;{order.notes}&quot;
                       </div>
                     )}
@@ -158,18 +158,18 @@ export const OrdersManagerView: React.FC = () => {
 
                   {/* Items List */}
                   <div className="space-y-1.5">
-                    <div className="font-bold text-slate-700 dark:text-slate-300 mb-1">
+                    <div className="font-bold text-slate-900 dark:text-slate-100 mb-1">
                       Artículos Ordenados:
                     </div>
                     {order.items.map((it, idx) => (
                       <div
                         key={idx}
-                        className="flex justify-between text-slate-600 dark:text-slate-300 py-0.5 border-b border-dashed border-slate-100 dark:border-slate-800"
+                        className="flex justify-between text-slate-800 dark:text-slate-200 font-medium py-0.5 border-b border-dashed border-slate-200 dark:border-slate-800"
                       >
                         <span>
                           {it.quantity}x {it.productName}
                         </span>
-                        <span className="font-bold text-slate-900 dark:text-white">
+                        <span className="font-bold text-slate-950 dark:text-white">
                           {currency}{it.subtotal.toFixed(2)}
                         </span>
                       </div>

@@ -140,16 +140,16 @@ export const CategoryManagerView: React.FC = () => {
                     <Tag className="w-4 h-4" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+                    <h3 className="font-bold text-slate-950 dark:text-white text-sm">
                       {cat.name}
                     </h3>
-                    <span className="text-[10px] text-slate-400">
+                    <span className="text-[11px] font-semibold text-slate-600 dark:text-slate-400">
                       Orden: #{cat.sortOrder}
                     </span>
                   </div>
                 </div>
 
-                <p className="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
+                <p className="text-xs sm:text-[13px] text-slate-800 dark:text-slate-200 line-clamp-2 leading-relaxed font-normal">
                   {cat.description || 'Sin descripción'}
                 </p>
 

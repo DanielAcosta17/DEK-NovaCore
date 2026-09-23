@@ -82,12 +82,12 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
               key={idx}
               className={`relative rounded-3xl p-7 flex flex-col justify-between transition-all duration-300 ${
                 p.popular
-                  ? 'bg-white dark:bg-slate-850 border-2 border-[#253745] dark:border-blue-400 shadow-xl shadow-[#253745]/10 md:-translate-y-2'
-                  : 'bg-white dark:bg-slate-850 border border-slate-200 dark:border-slate-750 shadow-sm'
+                  ? 'bg-[#16222f] dark:bg-[#111a24] border-2 border-sky-400 shadow-2xl shadow-sky-950/40 md:-translate-y-2'
+                  : 'bg-[#16222f] dark:bg-[#111a24] border border-slate-700/80 shadow-lg shadow-slate-950/20'
               }`}
             >
               {p.popular && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 bg-[#253745] dark:bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wider rounded-full shadow">
+                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 px-3.5 py-1 bg-sky-500 text-slate-950 text-[10px] font-extrabold uppercase tracking-wider rounded-full shadow-md">
                   {p.badge}
                 </div>
               )}
@@ -95,28 +95,28 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
               <div>
                 <div className="flex justify-between items-start">
                   <div>
-                    <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                    <h3 className="text-xl font-bold text-white">
                       {p.name}
                     </h3>
-                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    <p className="text-xs sm:text-[13px] text-sky-300 font-medium mt-1">
                       {p.description}
                     </p>
                   </div>
                 </div>
 
                 <div className="my-6 flex items-baseline gap-1">
-                  <span className="text-4xl font-black text-slate-900 dark:text-white">
+                  <span className="text-4xl font-black text-white">
                     {p.price}
                   </span>
-                  <span className="text-xs text-slate-500 dark:text-slate-400">
+                  <span className="text-xs text-sky-300 font-semibold">
                     {p.period}
                   </span>
                 </div>
 
-                <div className="space-y-3 pt-2 border-t border-slate-100 dark:border-slate-800 text-xs">
+                <div className="space-y-3 pt-2 border-t border-slate-700/70 text-xs sm:text-[13px]">
                   {p.features.map((feat, fIdx) => (
-                    <div key={fIdx} className="flex items-center gap-2 text-slate-700 dark:text-slate-300">
-                      <div className="w-4 h-4 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
+                    <div key={fIdx} className="flex items-center gap-2 font-medium text-sky-100">
+                      <div className="w-4 h-4 rounded-full bg-sky-950/80 border border-sky-800/60 text-cyan-400 flex items-center justify-center shrink-0">
                         <Check className="w-2.5 h-2.5" />
                       </div>
                       <span>{feat}</span>
@@ -128,10 +128,10 @@ export const Pricing: React.FC<PricingProps> = ({ onSelectPlan }) => {
               <div className="pt-8">
                 <button
                   onClick={onSelectPlan}
-                  className={`w-full py-3 px-4 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-2 ${
+                  className={`w-full py-3 px-4 rounded-xl text-xs font-bold transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer ${
                     p.popular
-                      ? 'bg-[#253745] hover:bg-[#1c2a35] text-white shadow-md shine-effect'
-                      : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-white'
+                      ? 'bg-sky-500 hover:bg-sky-400 text-slate-950 shadow-md font-extrabold'
+                      : 'bg-sky-950/60 hover:bg-sky-900/80 text-sky-200 border border-sky-600/40'
                   }`}
                 >
                   <span>{p.cta}</span>

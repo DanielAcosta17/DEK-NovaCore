@@ -64,25 +64,25 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 animate-fade-in overflow-y-auto">
-      <div className="relative w-full max-w-lg bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-800 overflow-hidden my-6">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-fade-in overflow-y-auto">
+      <div className="relative w-full max-w-lg bg-[#16222f] dark:bg-[#111a24] rounded-2xl shadow-2xl border border-slate-700/80 overflow-hidden my-6">
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/40 text-white hover:bg-black/60 backdrop-blur-md transition-colors"
+          className="absolute top-3 right-3 z-10 p-2 rounded-full bg-black/40 text-white hover:bg-black/60 backdrop-blur-md transition-colors cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Product Image */}
-        <div className="relative h-64 sm:h-72 w-full bg-slate-100 dark:bg-slate-800">
+        <div className="relative h-64 sm:h-72 w-full bg-slate-900">
           <img
             src={product.imageUrl}
             alt={product.name}
             className="w-full h-full object-cover"
           />
           {product.isFeatured && (
-            <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-white text-[11px] font-extrabold uppercase tracking-wide rounded-full shadow-md">
+            <div className="absolute top-4 left-4 px-3 py-1 bg-amber-500 text-slate-950 text-[11px] font-extrabold uppercase tracking-wide rounded-full shadow-md">
               Destacado
             </div>
           )}
@@ -97,15 +97,15 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
         <div className="p-6 space-y-4">
           <div>
             <div className="flex items-start justify-between gap-2">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white">
+              <h2 className="text-xl font-bold text-white">
                 {product.name}
               </h2>
               <div className="text-right shrink-0">
-                <div className="text-xl font-black text-slate-900 dark:text-white">
+                <div className="text-xl font-black text-white">
                   {currency}{product.price.toFixed(2)}
                 </div>
                 {product.comparePrice && (
-                  <div className="text-xs text-slate-400 line-through">
+                  <div className="text-xs text-sky-400/80 line-through">
                     {currency}{product.comparePrice.toFixed(2)}
                   </div>
                 )}
@@ -113,13 +113,13 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
             </div>
 
             {product.sku && (
-              <div className="text-[11px] font-mono text-slate-400 mt-0.5">
+              <div className="text-[11px] font-mono font-semibold text-sky-300 mt-0.5">
                 Cód: {product.sku} {product.unit ? `• Unidad: ${product.unit}` : ''}
               </div>
             )}
           </div>
 
-          <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+          <p className="text-xs sm:text-sm text-sky-100 leading-relaxed font-normal">
             {product.description || 'Sin descripción adicional para este producto.'}
           </p>
 
@@ -129,7 +129,7 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               {product.tags.map((tag, i) => (
                 <span
                   key={i}
-                  className="px-2 py-0.5 text-[10px] rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center gap-1 font-medium"
+                  className="px-2 py-0.5 text-[10px] rounded-md bg-sky-950/80 text-sky-200 border border-sky-800/60 flex items-center gap-1 font-bold"
                 >
                   <Tag className="w-2.5 h-2.5" />
                   {tag}
@@ -139,8 +139,8 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
           )}
 
           {/* Special instructions / notes */}
-          <div className="pt-2 border-t border-slate-100 dark:border-slate-800">
-            <label className="block text-[11px] font-bold text-slate-700 dark:text-slate-300 mb-1">
+          <div className="pt-2 border-t border-slate-700/70">
+            <label className="block text-xs font-bold text-sky-200 mb-1">
               Indicaciones especiales o personalización:
             </label>
             <input
@@ -148,26 +148,26 @@ export const ProductDetailModal: React.FC<ProductDetailModalProps> = ({
               placeholder="Ej: Término medio, sin azúcar, talla M, etc."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white focus:outline-none focus:ring-1 focus:ring-[#253745]"
+              className="w-full px-3 py-2 text-xs rounded-xl border border-slate-700 bg-[#0f1722] text-white placeholder:text-slate-400 focus:outline-none focus:ring-1 focus:ring-sky-400"
             />
           </div>
 
           {/* Quantity and Actions */}
-          <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-col sm:flex-row items-center gap-3">
+          <div className="pt-3 border-t border-slate-700/70 flex flex-col sm:flex-row items-center gap-3">
             {/* Quantity Selector */}
-            <div className="flex items-center gap-2 bg-slate-100 dark:bg-slate-800 rounded-xl p-1 w-full sm:w-auto justify-center">
+            <div className="flex items-center gap-2 bg-[#0f1722] border border-slate-700 rounded-xl p-1 w-full sm:w-auto justify-center">
               <button
                 onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                className="w-8 h-8 rounded-lg bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold hover:bg-slate-50 transition-colors shadow-sm"
+                className="w-8 h-8 rounded-lg bg-slate-800 text-sky-200 flex items-center justify-center font-bold hover:bg-slate-700 transition-colors shadow-sm cursor-pointer"
               >
                 <Minus className="w-4 h-4" />
               </button>
-              <span className="w-8 text-center text-xs font-bold text-slate-800 dark:text-white">
+              <span className="w-8 text-center text-xs font-bold text-white">
                 {quantity}
               </span>
               <button
                 onClick={() => setQuantity(quantity + 1)}
-                className="w-8 h-8 rounded-lg bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center font-bold hover:bg-slate-50 transition-colors shadow-sm"
+                className="w-8 h-8 rounded-lg bg-slate-800 text-sky-200 flex items-center justify-center font-bold hover:bg-slate-700 transition-colors shadow-sm cursor-pointer"
               >
                 <Plus className="w-4 h-4" />
               </button>

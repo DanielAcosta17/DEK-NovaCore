@@ -113,10 +113,10 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
               className="p-5 bg-white dark:bg-slate-850 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md cursor-pointer transition-all flex items-center justify-between"
             >
               <div className="space-y-1">
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-medium truncate block max-w-[150px]">
+                <span className="text-xs text-slate-700 dark:text-slate-300 font-bold truncate block max-w-[150px]">
                   {st.label}
                 </span>
-                <span className="text-2xl font-black text-slate-900 dark:text-white">
+                <span className="text-2xl font-black text-slate-950 dark:text-white">
                   {st.value}
                 </span>
               </div>
@@ -130,7 +130,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
 
       {/* Quick Action Shortcuts */}
       <div className="bg-white dark:bg-slate-850 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-4">
-        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+        <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
           Acciones Rápidas
         </h3>
 
@@ -143,10 +143,10 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
               <Plus className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-slate-900 dark:text-white">
+              <div className="text-xs font-bold text-slate-950 dark:text-white">
                 Agregar Producto
               </div>
-              <div className="text-[11px] text-slate-500">Nuevo ítem al catálogo</div>
+              <div className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">Nuevo ítem al catálogo</div>
             </div>
           </button>
 
@@ -158,10 +158,10 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
               <Building2 className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-slate-900 dark:text-white">
+              <div className="text-xs font-bold text-slate-950 dark:text-white">
                 Nuevo Negocio / Cliente
               </div>
-              <div className="text-[11px] text-slate-500">Crear sitio individual</div>
+              <div className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">Crear sitio individual</div>
             </div>
           </button>
 
@@ -173,10 +173,10 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <div className="text-xs font-bold text-slate-900 dark:text-white">
+              <div className="text-xs font-bold text-slate-950 dark:text-white">
                 Cambiar Plantilla
               </div>
-              <div className="text-[11px] text-slate-500">Restaurante, moda, etc.</div>
+              <div className="text-[11px] text-slate-700 dark:text-slate-300 font-medium">Restaurante, moda, etc.</div>
             </div>
           </button>
         </div>
@@ -186,10 +186,10 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
       <div className="bg-white dark:bg-slate-850 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 shadow-sm space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+            <h3 className="text-sm font-bold text-slate-950 dark:text-white">
               Productos Destacados de {activeBusiness?.name}
             </h3>
-            <p className="text-xs text-slate-500">Artículos principales visibles en la portada</p>
+            <p className="text-xs text-slate-700 dark:text-slate-300 font-medium">Artículos principales visibles en la portada</p>
           </div>
           <button
             onClick={() => onNavigate('products')}
@@ -212,7 +212,7 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 dark:bg-slate-800/60 text-slate-500 uppercase tracking-wider text-[10px]">
+              <thead className="bg-slate-50 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider text-[10px]">
                 <tr>
                   <th className="py-2.5 px-3">Producto</th>
                   <th className="py-2.5 px-3">Precio</th>
@@ -230,15 +230,15 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
                         className="w-9 h-9 rounded-lg object-cover border border-slate-200 dark:border-slate-700"
                       />
                       <div>
-                        <div className="font-semibold text-slate-900 dark:text-white truncate max-w-[200px]">
+                        <div className="font-bold text-slate-950 dark:text-white truncate max-w-[200px]">
                           {p.name}
                         </div>
-                        <div className="text-[10px] text-slate-400 truncate max-w-[200px]">
+                        <div className="text-[11px] text-slate-600 dark:text-slate-300 truncate max-w-[200px] font-medium">
                           {p.description || 'Sin descripción'}
                         </div>
                       </div>
                     </td>
-                    <td className="py-3 px-3 font-bold text-slate-900 dark:text-white">
+                    <td className="py-3 px-3 font-black text-slate-950 dark:text-white">
                       {activeBusiness?.currency || '$'}{p.price.toFixed(2)}
                     </td>
                     <td className="py-3 px-3">

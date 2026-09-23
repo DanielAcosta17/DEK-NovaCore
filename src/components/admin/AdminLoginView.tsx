@@ -26,9 +26,9 @@ export const AdminLoginView: React.FC = () => {
   const { goToLanding } = useBusiness();
 
   const [mode, setMode] = useState<'login' | 'register' | 'forgot'>('login');
-  const [email, setEmail] = useState<string>('danielacostaperez17@gmail.com');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [name, setName] = useState<string>('Daniel Acosta');
+  const [name, setName] = useState<string>('');
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const [loading, setLoading] = useState<boolean>(false);
@@ -253,7 +253,7 @@ export const AdminLoginView: React.FC = () => {
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="Ej. Daniel Acosta"
+                placeholder="Ej. Carlos Mendoza"
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-800/90 border border-slate-700 text-white text-xs placeholder:text-slate-500 focus:outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-400 transition-all"
               />
             </div>
