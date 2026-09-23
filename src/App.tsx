@@ -19,36 +19,60 @@ const AppContent: React.FC = () => {
   const {
     activeView,
     activeBusiness,
-    getBusinessBySlug,
+    currentPublicSlug,
     goToPublicStore,
     goToAdmin,
     goToLanding,
     businesses,
+    isLoading,
+    defaultHomePage,
   } = useBusiness();
 
   const [isFirebaseModalOpen, setIsFirebaseModalOpen] = useState(false);
 
-  // Synchronize with URL hash routing (e.g., #negocio/pasteleria-dulce-encanto, #admin)
+  // Synchronize with URL routing (hash, search params, pathname)
   useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace(/^#/, '');
-      if (hash.startsWith('negocio/')) {
-        const slug = hash.replace('negocio/', '');
-        goToPublicStore(slug);
-      } else if (hash === 'admin') {
+    const handleUrlRoute = () => {
+      // 1. Check Hash: e.g. #negocio/pasteleria-dulce-encanto or #admin
+      const hash = window.location.hash.replace(/^#\/?/, '');
+      
+      // 2. Check Search query: e.g. ?negocio=slug or ?tienda=slug
+      const urlParams = new URLSearchParams(window.location.search);
+      const querySlug = urlParams.get('negocio') || urlParams.get('tienda');
+
+      // 3. Check Pathname: e.g. /negocio/slug
+      const pathMatches = window.location.pathname.match(/\/negocio\/([^/]+)/);
+      const pathSlug = pathMatches ? pathMatches[1] : null;
+
+      const targetSlug = querySlug || pathSlug || (hash.startsWith('negocio/') ? hash.replace('negocio/', '') : null);
+
+      if (targetSlug) {
+        goToPublicStore(decodeURIComponent(targetSlug));
+      } else if (hash === 'admin' || window.location.pathname === '/admin') {
         goToAdmin();
-      } else if (!hash || hash === 'inicio') {
-        goToLanding();
+      } else if (hash === 'inicio' || hash === '') {
+        // If user set defaultHomePage to store and there's a business, open it
+        if (defaultHomePage === 'store' && businesses.length > 0) {
+          goToPublicStore(businesses[0].slug);
+        } else {
+          goToLanding();
+        }
       }
     };
 
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
-  }, []);
+    handleUrlRoute();
+    window.addEventListener('hashchange', handleUrlRoute);
+    window.addEventListener('popstate', handleUrlRoute);
+    return () => {
+      window.removeEventListener('hashchange', handleUrlRoute);
+      window.removeEventListener('popstate', handleUrlRoute);
+    };
+  }, [businesses.length, defaultHomePage]);
 
-  // Update hash when activeView changes
+  // Update hash when activeView changes (avoid wiping user's slug during load)
   useEffect(() => {
+    if (isLoading) return;
+
     if (activeView === 'admin') {
       if (window.location.hash !== '#admin') {
         window.history.replaceState(null, '', '#admin');
@@ -63,7 +87,20 @@ const AppContent: React.FC = () => {
         window.history.replaceState(null, '', ' ');
       }
     }
-  }, [activeView, activeBusiness]);
+  }, [activeView, activeBusiness, isLoading]);
+
+  // Show clean loading spinner while Firebase initializes
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-[#0d1520] text-slate-100 flex flex-col items-center justify-center p-6 text-center select-none">
+        <div className="w-14 h-14 rounded-2xl bg-sky-500 text-slate-950 flex items-center justify-center font-black text-2xl shadow-xl shadow-sky-500/20 mb-4 animate-pulse">
+          <span>D</span>
+        </div>
+        <h2 className="text-base font-bold text-white mb-1">Cargando sitio web...</h2>
+        <p className="text-xs text-sky-300">Conectando catálogo y configuración en tiempo real</p>
+      </div>
+    );
+  }
 
   // If activeView is Admin
   if (activeView === 'admin') {
@@ -71,8 +108,41 @@ const AppContent: React.FC = () => {
   }
 
   // If activeView is Public Store
-  if (activeView === 'public_store' && activeBusiness) {
-    return <PublicBusinessView business={activeBusiness} />;
+  if (activeView === 'public_store') {
+    if (activeBusiness) {
+      return <PublicBusinessView business={activeBusiness} />;
+    }
+
+    // If a slug was requested but no business matched
+    return (
+      <div className="min-h-screen bg-[#0d1520] text-slate-100 flex flex-col items-center justify-center p-6 text-center">
+        <div className="max-w-md w-full p-8 rounded-2xl bg-[#16222f] border border-slate-700/80 shadow-2xl space-y-4">
+          <div className="w-12 h-12 rounded-xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center mx-auto text-xl font-bold">
+            !
+          </div>
+          <h2 className="text-lg font-bold text-white">Negocio no encontrado</h2>
+          <p className="text-xs text-sky-200">
+            {currentPublicSlug
+              ? `No se encontró ningún negocio registrado con el enlace "/#negocio/${currentPublicSlug}".`
+              : 'No hay ningún negocio seleccionado para mostrar.'}
+          </p>
+          <div className="pt-2 flex flex-col sm:flex-row gap-2.5 justify-center">
+            <button
+              onClick={goToLanding}
+              className="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-sky-200 text-xs font-semibold rounded-xl border border-slate-700 cursor-pointer"
+            >
+              Ir a Inicio
+            </button>
+            <button
+              onClick={goToAdmin}
+              className="px-4 py-2 bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-bold rounded-xl cursor-pointer"
+            >
+              Ir al Panel Administrador
+            </button>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   // Default: Landing Page

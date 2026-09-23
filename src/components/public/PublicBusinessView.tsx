@@ -18,6 +18,7 @@ import {
   Info,
   Truck,
   ExternalLink,
+  Globe,
 } from 'lucide-react';
 import { Business, Product, Category } from '../../types';
 import { useBusiness } from '../../contexts/BusinessContext';
@@ -234,14 +235,27 @@ export const PublicBusinessView: React.FC<PublicBusinessViewProps> = ({ business
             )}
           </div>
 
-          {/* Social Links */}
+          {/* Social & Web Links */}
           <div className="flex items-center gap-3">
+            {business.websiteUrl && (
+              <a
+                href={business.websiteUrl.startsWith('http') ? business.websiteUrl : `https://${business.websiteUrl}`}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-sky-950/80 border border-sky-800/60 text-sky-400 hover:text-white text-xs font-semibold transition-colors"
+                title={`Sitio web oficial: ${business.websiteUrl}`}
+              >
+                <Globe className="w-3.5 h-3.5" />
+                <span>Sitio Web</span>
+                <ExternalLink className="w-2.5 h-2.5 opacity-70" />
+              </a>
+            )}
             {business.instagram && (
               <a
                 href={`https://instagram.com/${business.instagram.replace('@', '')}`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-500 hover:text-pink-600 transition-colors"
+                className="text-slate-400 hover:text-pink-400 transition-colors"
                 title="Instagram"
               >
                 <Instagram className="w-4 h-4" />
@@ -252,7 +266,7 @@ export const PublicBusinessView: React.FC<PublicBusinessViewProps> = ({ business
                 href={business.facebook}
                 target="_blank"
                 rel="noreferrer"
-                className="text-slate-500 hover:text-blue-600 transition-colors"
+                className="text-slate-400 hover:text-blue-400 transition-colors"
                 title="Facebook"
               >
                 <Facebook className="w-4 h-4" />

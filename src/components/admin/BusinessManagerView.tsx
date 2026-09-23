@@ -16,6 +16,8 @@ import {
   Clock,
   Sparkles,
   Layers,
+  Globe,
+  Home,
 } from 'lucide-react';
 import { Business, TemplateType } from '../../types';
 import { useBusiness } from '../../contexts/BusinessContext';
@@ -38,6 +40,8 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
     goToPublicStore,
     setSelectedBusinessId,
     selectedBusinessId,
+    defaultHomePage,
+    setDefaultHomePage,
     purgeAllData,
   } = useBusiness();
 
@@ -52,6 +56,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
     businessType: 'Restaurante / Cafetería',
     tagline: '',
     description: '',
+    websiteUrl: '',
     logoUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&auto=format&fit=crop&q=80',
     coverUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=80',
     phone: '+507 6024-4779',
@@ -77,6 +82,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
       businessType: 'Restaurante / Cafetería',
       tagline: 'Lo mejor en sabor y calidad',
       description: 'Bienvenido a nuestro menú digital interactivo.',
+      websiteUrl: '',
       logoUrl: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=300&auto=format&fit=crop&q=80',
       coverUrl: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1200&auto=format&fit=crop&q=80',
       phone: '+507 6024-4779',
@@ -98,7 +104,7 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
 
   const openEditModal = (biz: Business) => {
     setEditingBiz(biz);
-    setFormData({ ...biz });
+    setFormData({ websiteUrl: '', ...biz });
     setIsModalOpen(true);
   };
 
@@ -182,6 +188,48 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
         </div>
       </div>
 
+      {/* Home Mode Configuration Banner */}
+      {businesses.length > 0 && (
+        <div className="p-4 rounded-xl bg-[#16222f] border border-slate-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs shadow-md">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 rounded-lg bg-sky-950/80 border border-sky-800/60 text-sky-400 shrink-0">
+              <Home className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="font-bold text-white">¿Qué pantalla debe abrirse al entrar a la web principal?</span>
+              <p className="text-[11px] text-sky-300">
+                {defaultHomePage === 'store'
+                  ? 'Abriendo directamente el Catálogo / Menú digital en vivo del negocio activo.'
+                  : 'Abriendo la Landing Page corporativa de D. E. K NovaCore.'}
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1.5 self-end sm:self-auto bg-[#0f1722] p-1 rounded-xl border border-slate-700">
+            <button
+              onClick={() => setDefaultHomePage('landing')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                defaultHomePage === 'landing'
+                  ? 'bg-slate-700 text-white shadow-sm'
+                  : 'text-sky-300 hover:text-white'
+              }`}
+            >
+              Landing General
+            </button>
+            <button
+              onClick={() => setDefaultHomePage('store')}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all cursor-pointer ${
+                defaultHomePage === 'store'
+                  ? 'bg-sky-500 text-slate-950 font-bold shadow-sm'
+                  : 'text-sky-300 hover:text-white'
+              }`}
+            >
+              Abrir Catálogo Directo
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Businesses Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {businesses.length === 0 ? (
@@ -252,8 +300,23 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
 
                 {/* Details */}
                 <div className="p-4 space-y-2 text-xs">
-                  <div className="text-[11px] font-mono font-bold text-sky-300 truncate">
-                    /negocio/{biz.slug}
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="text-[11px] font-mono font-bold text-sky-300 truncate">
+                      /negocio/{biz.slug}
+                    </span>
+                    {biz.websiteUrl && (
+                      <a
+                        href={biz.websiteUrl.startsWith('http') ? biz.websiteUrl : `https://${biz.websiteUrl}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 text-[10px] font-bold shrink-0 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/60"
+                        title={`Visitar: ${biz.websiteUrl}`}
+                      >
+                        <Globe className="w-3 h-3" />
+                        <span>Web</span>
+                        <ExternalLink className="w-2.5 h-2.5" />
+                      </a>
+                    )}
                   </div>
                   <p className="text-sky-100 text-xs line-clamp-2 leading-relaxed">
                     {biz.description}
@@ -507,6 +570,41 @@ export const BusinessManagerView: React.FC<BusinessManagerViewProps> = ({
                     className="w-full px-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400"
                   />
                 </div>
+              </div>
+
+              {/* External Website / Link */}
+              <div>
+                <label className="block font-semibold text-sky-200 mb-1">
+                  Enlace de Sitio Web Externo / Dominio Propio (Opcional)
+                </label>
+                <div className="flex items-center gap-2">
+                  <div className="relative flex-1">
+                    <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-sky-400">
+                      <Globe className="w-4 h-4" />
+                    </div>
+                    <input
+                      type="url"
+                      placeholder="https://tudominio.com o https://misitio.com"
+                      value={formData.websiteUrl || ''}
+                      onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
+                      className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-700 bg-[#0f1722] text-white focus:outline-none focus:ring-1 focus:ring-sky-400 text-xs"
+                    />
+                  </div>
+                  {formData.websiteUrl && (
+                    <a
+                      href={formData.websiteUrl.startsWith('http') ? formData.websiteUrl : `https://${formData.websiteUrl}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2.5 rounded-xl bg-slate-800 text-sky-300 hover:text-white border border-slate-700 shrink-0"
+                      title="Probar enlace"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
+                <p className="text-[11px] text-sky-300/80 mt-1">
+                  Si tu negocio ya cuenta con un sitio web propio, vincúlalo aquí para que aparezca directamente en el panel y en la cabecera.
+                </p>
               </div>
 
               {/* Address and Schedule */}

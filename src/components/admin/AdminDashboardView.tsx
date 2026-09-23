@@ -12,6 +12,7 @@ import {
   ArrowUpRight,
   CheckCircle2,
   Share2,
+  Globe,
 } from 'lucide-react';
 import { useBusiness } from '../../contexts/BusinessContext';
 
@@ -84,11 +85,23 @@ export const AdminDashboardView: React.FC<AdminDashboardViewProps> = ({
 
         {activeBusiness && (
           <div className="flex flex-wrap items-center gap-2.5 relative z-10">
+            {activeBusiness.websiteUrl && (
+              <a
+                href={activeBusiness.websiteUrl.startsWith('http') ? activeBusiness.websiteUrl : `https://${activeBusiness.websiteUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="py-2.5 px-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center gap-1.5 cursor-pointer"
+                title={`Visitar sitio web oficial: ${activeBusiness.websiteUrl}`}
+              >
+                <Globe className="w-4 h-4" />
+                <span>Sitio Web Oficial</span>
+              </a>
+            )}
             <button
               onClick={() => goToPublicStore(activeBusiness.slug)}
               className="py-2.5 px-4 bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs rounded-xl shadow-lg transition-all flex items-center gap-1.5 cursor-pointer"
             >
-              <span>Ver Sitio en Vivo</span>
+              <span>Ver Catálogo en Vivo</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
             <button

@@ -53,6 +53,10 @@ interface BusinessContextType {
   lastFirestoreSyncTime: string | null;
   syncNotification: string | null;
 
+  // Default home page setting
+  defaultHomePage: 'landing' | 'store';
+  setDefaultHomePage: (mode: 'landing' | 'store') => void;
+
   // Purge / Reset to zero
   purgeAllData: () => Promise<{ success: boolean; deletedCount: number; message: string }>;
   resetData: () => Promise<void>;
@@ -71,6 +75,15 @@ export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [lastFirestoreSyncTime, setLastFirestoreSyncTime] = useState<string | null>(null);
   const [syncNotification, setSyncNotification] = useState<string | null>(null);
+  const [defaultHomePage, setDefaultHomePageState] = useState<'landing' | 'store'>(() => {
+    return (localStorage.getItem('deknovacore_default_home_page') as 'landing' | 'store') || 'landing';
+  });
+
+  const setDefaultHomePage = (mode: 'landing' | 'store') => {
+    setDefaultHomePageState(mode);
+    localStorage.setItem('deknovacore_default_home_page', mode);
+    showSyncToast(`Página de inicio configurada a: ${mode === 'store' ? 'Catálogo del Negocio' : 'Landing Page'}`);
+  };
 
   const showSyncToast = (msg: string) => {
     setSyncNotification(msg);
@@ -101,6 +114,10 @@ export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const unsubBiz = DataService.subscribeBusinesses((bizList) => {
       setBusinesses(bizList);
       setSelectedBusinessId((prev) => {
+        if (currentPublicSlug) {
+          const match = bizList.find((b) => b.slug.toLowerCase() === currentPublicSlug.toLowerCase());
+          if (match) return match.id;
+        }
         if (prev && bizList.some((b) => b.id === prev)) {
           return prev;
         }
@@ -130,6 +147,9 @@ export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   }, []);
 
   const activeBusiness =
+    (currentPublicSlug
+      ? businesses.find((b) => b.slug.toLowerCase() === currentPublicSlug.toLowerCase())
+      : null) ||
     businesses.find((b) => b.id === selectedBusinessId) ||
     (businesses.length > 0 ? businesses[0] : null);
 
@@ -148,7 +168,7 @@ export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   const goToPublicStore = (slug: string) => {
     setCurrentPublicSlug(slug);
-    const found = businesses.find((b) => b.slug === slug);
+    const found = businesses.find((b) => b.slug.toLowerCase() === slug.toLowerCase());
     if (found) {
       setSelectedBusinessId(found.id);
     }
@@ -183,6 +203,7 @@ export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       whatsapp: bizData.whatsapp || '50760244779',
       address: bizData.address || 'Ciudad de Panamá',
       schedule: bizData.schedule || 'Lunes a Sábado: 9:00 AM - 6:00 PM',
+      websiteUrl: bizData.websiteUrl || '',
       instagram: bizData.instagram || '',
       facebook: bizData.facebook || '',
       tiktok: bizData.tiktok || '',
@@ -228,9 +249,13 @@ export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     await DataService.deleteBusiness(id);
     const updated = businesses.filter((b) => b.id !== id);
     setBusinesses(updated);
-    if (selectedBusinessId === id && updated.length > 0) {
-      setSelectedBusinessId(updated[0].id);
+    setCategories((prev) => prev.filter((c) => c.businessId !== id));
+    setProducts((prev) => prev.filter((p) => p.businessId !== id));
+    setOrders((prev) => prev.filter((o) => o.businessId !== id));
+    if (selectedBusinessId === id) {
+      setSelectedBusinessId(updated.length > 0 ? updated[0].id : '');
     }
+    showSyncToast('Negocio eliminado exitosamente de Firestore');
   };
 
   const toggleBusinessActive = async (id: string) => {
@@ -429,6 +454,8 @@ export const BusinessProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         updateOrderStatus,
         deleteOrder,
         syncAllToFirestore,
+        defaultHomePage,
+        setDefaultHomePage,
         purgeAllData,
         resetData,
       }}

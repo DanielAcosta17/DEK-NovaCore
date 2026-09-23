@@ -13,6 +13,7 @@ export interface Business {
   whatsapp: string;
   address: string;
   schedule: string;
+  websiteUrl?: string;
   instagram?: string;
   facebook?: string;
   tiktok?: string;
